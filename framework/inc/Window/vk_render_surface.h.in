@@ -1,0 +1,10 @@
+//
+// Created by jae on 20/04/23.
+//
+
+#ifndef VK_FRAMEWORK_IMPL_CONFIG_H_IN_H
+#define VK_FRAMEWORK_IMPL_CONFIG_H_IN_H
+
+#include <Window/${CMAKE_SYSTEM_NAME}/vk_render_surface.h>
+
+#endif //VK_FRAMEWORK_IMPL_CONFIG_H_IN_H
