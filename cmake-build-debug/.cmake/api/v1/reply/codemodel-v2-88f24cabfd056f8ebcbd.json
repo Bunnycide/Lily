@@ -1,0 +1,200 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						3
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.25"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1,
+						2,
+						3,
+						5,
+						6
+					]
+				},
+				{
+					"build" : "external/glm",
+					"childIndexes" : 
+					[
+						2
+					],
+					"jsonFile" : "directory-external.glm-Debug-a6dc993d5209625b6587.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.2"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "external/glm"
+				},
+				{
+					"build" : "external/glm/glm",
+					"jsonFile" : "directory-external.glm.glm-Debug-32a2ad45a04345e60681.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.2"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "external/glm/glm"
+				},
+				{
+					"build" : "external/glfw-3.3.8",
+					"childIndexes" : 
+					[
+						4
+					],
+					"jsonFile" : "directory-external.glfw-3.3.8-Debug-59438b71e5a8010968df.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 2,
+					"source" : "external/glfw-3.3.8"
+				},
+				{
+					"build" : "external/glfw-3.3.8/src",
+					"jsonFile" : "directory-external.glfw-3.3.8.src-Debug-c120fa844b0c7e8de7a7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 3,
+					"projectIndex" : 2,
+					"source" : "external/glfw-3.3.8/src",
+					"targetIndexes" : 
+					[
+						0,
+						4
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "vk_framework_impl",
+					"targetIndexes" : 
+					[
+						1,
+						2,
+						3,
+						5,
+						6
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1,
+						2
+					],
+					"name" : "glm",
+					"parentIndex" : 0
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3,
+						4
+					],
+					"name" : "GLFW",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 4,
+					"id" : "glfw::@1c1c097f590ac967e566",
+					"jsonFile" : "target-glfw-Debug-8a8784e96eb71549f65c.json",
+					"name" : "glfw",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lily::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lily-Debug-59bdb004ba8269ab0727.json",
+					"name" : "lily",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "log_util::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-log_util-Debug-a0a75df10ff2425bd1f1.json",
+					"name" : "log_util",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "spv_reflect::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-spv_reflect-Debug-41997d95fe0b4a21cff6.json",
+					"name" : "spv_reflect",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "update_mappings::@1c1c097f590ac967e566",
+					"jsonFile" : "target-update_mappings-Debug-f25d6ed330638ad7f8fb.json",
+					"name" : "update_mappings",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vk_framework_impl::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vk_framework_impl-Debug-c5e437aa0a8f0fa3bcae.json",
+					"name" : "vk_framework_impl",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "vk_loader::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-vk_loader-Debug-a71971eff7cb0c1d3e13.json",
+					"name" : "vk_loader",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/jae/CLionProjects/vk-framework-impl/cmake-build-debug",
+		"source" : "/home/jae/CLionProjects/vk-framework-impl"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

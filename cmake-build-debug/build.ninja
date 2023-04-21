@@ -41,6 +41,37 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = /home/jae/CLionProjects/vk-framework-impl/cmake-build-debug/
 # =============================================================================
+# Object build statements for STATIC_LIBRARY target spv_reflect
+
+
+#############################################
+# Order-only phony target for spv_reflect
+
+build cmake_object_order_depends_target_spv_reflect: phony || CMakeFiles/spv_reflect.dir
+
+build CMakeFiles/spv_reflect.dir/external/spirv-reflect/spirv_reflect.cpp.o: CXX_COMPILER__spv_reflect_Debug /home/jae/CLionProjects/vk-framework-impl/external/spirv-reflect/spirv_reflect.cpp || cmake_object_order_depends_target_spv_reflect
+  DEP_FILE = CMakeFiles/spv_reflect.dir/external/spirv-reflect/spirv_reflect.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/spv_reflect.dir
+  OBJECT_FILE_DIR = CMakeFiles/spv_reflect.dir/external/spirv-reflect
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target spv_reflect
+
+
+#############################################
+# Link the static library libspv_reflect.a
+
+build libspv_reflect.a: CXX_STATIC_LIBRARY_LINKER__spv_reflect_Debug CMakeFiles/spv_reflect.dir/external/spirv-reflect/spirv_reflect.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = CMakeFiles/spv_reflect.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = libspv_reflect.a
+  TARGET_PDB = spv_reflect.a.dbg
+
+# =============================================================================
 # Object build statements for STATIC_LIBRARY target log_util
 
 
@@ -118,7 +149,7 @@ build libvk_loader.a: CXX_STATIC_LIBRARY_LINKER__vk_loader_Debug CMakeFiles/vk_l
 #############################################
 # Order-only phony target for lily
 
-build cmake_object_order_depends_target_lily: phony || cmake_object_order_depends_target_glfw cmake_object_order_depends_target_log_util cmake_object_order_depends_target_vk_loader
+build cmake_object_order_depends_target_lily: phony || cmake_object_order_depends_target_glfw cmake_object_order_depends_target_log_util cmake_object_order_depends_target_spv_reflect cmake_object_order_depends_target_vk_loader
 
 build CMakeFiles/lily.dir/framework/src/Window/WindowBase.cpp.o: CXX_COMPILER__lily_Debug /home/jae/CLionProjects/vk-framework-impl/framework/src/Window/WindowBase.cpp || cmake_object_order_depends_target_lily
   DEP_FILE = CMakeFiles/lily.dir/framework/src/Window/WindowBase.cpp.o.d
@@ -211,12 +242,61 @@ build CMakeFiles/lily.dir/framework/src/Window/Linux/vk_render_surface.cpp.o: CX
   OBJECT_DIR = CMakeFiles/lily.dir
   OBJECT_FILE_DIR = CMakeFiles/lily.dir/framework/src/Window/Linux
 
+build CMakeFiles/lily.dir/framework/src/Shader/utils/shader_utils.cpp.o: CXX_COMPILER__lily_Debug /home/jae/CLionProjects/vk-framework-impl/framework/src/Shader/utils/shader_utils.cpp || cmake_object_order_depends_target_lily
+  DEP_FILE = CMakeFiles/lily.dir/framework/src/Shader/utils/shader_utils.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/jae/CLionProjects/vk-framework-impl/framework/inc -I/home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/include -I/home/jae/CLionProjects/vk-framework-impl/external/glm/glm/..
+  OBJECT_DIR = CMakeFiles/lily.dir
+  OBJECT_FILE_DIR = CMakeFiles/lily.dir/framework/src/Shader/utils
+
+build CMakeFiles/lily.dir/framework/src/Renderer/Renderer.cpp.o: CXX_COMPILER__lily_Debug /home/jae/CLionProjects/vk-framework-impl/framework/src/Renderer/Renderer.cpp || cmake_object_order_depends_target_lily
+  DEP_FILE = CMakeFiles/lily.dir/framework/src/Renderer/Renderer.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/jae/CLionProjects/vk-framework-impl/framework/inc -I/home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/include -I/home/jae/CLionProjects/vk-framework-impl/external/glm/glm/..
+  OBJECT_DIR = CMakeFiles/lily.dir
+  OBJECT_FILE_DIR = CMakeFiles/lily.dir/framework/src/Renderer
+
+build CMakeFiles/lily.dir/framework/src/Renderer/utils/vk_render_X_utils.cpp.o: CXX_COMPILER__lily_Debug /home/jae/CLionProjects/vk-framework-impl/framework/src/Renderer/utils/vk_render_X_utils.cpp || cmake_object_order_depends_target_lily
+  DEP_FILE = CMakeFiles/lily.dir/framework/src/Renderer/utils/vk_render_X_utils.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/jae/CLionProjects/vk-framework-impl/framework/inc -I/home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/include -I/home/jae/CLionProjects/vk-framework-impl/external/glm/glm/..
+  OBJECT_DIR = CMakeFiles/lily.dir
+  OBJECT_FILE_DIR = CMakeFiles/lily.dir/framework/src/Renderer/utils
+
+build CMakeFiles/lily.dir/framework/src/Shader/ShaderBuilder.cpp.o: CXX_COMPILER__lily_Debug /home/jae/CLionProjects/vk-framework-impl/framework/src/Shader/ShaderBuilder.cpp || cmake_object_order_depends_target_lily
+  DEP_FILE = CMakeFiles/lily.dir/framework/src/Shader/ShaderBuilder.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/jae/CLionProjects/vk-framework-impl/framework/inc -I/home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/include -I/home/jae/CLionProjects/vk-framework-impl/external/glm/glm/..
+  OBJECT_DIR = CMakeFiles/lily.dir
+  OBJECT_FILE_DIR = CMakeFiles/lily.dir/framework/src/Shader
+
 build CMakeFiles/lily.dir/framework/src/Shader/Shader.cpp.o: CXX_COMPILER__lily_Debug /home/jae/CLionProjects/vk-framework-impl/framework/src/Shader/Shader.cpp || cmake_object_order_depends_target_lily
   DEP_FILE = CMakeFiles/lily.dir/framework/src/Shader/Shader.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   INCLUDES = -I/home/jae/CLionProjects/vk-framework-impl/framework/inc -I/home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/include -I/home/jae/CLionProjects/vk-framework-impl/external/glm/glm/..
   OBJECT_DIR = CMakeFiles/lily.dir
   OBJECT_FILE_DIR = CMakeFiles/lily.dir/framework/src/Shader
+
+build CMakeFiles/lily.dir/framework/src/Shader/utils/spv_reflect_util.cpp.o: CXX_COMPILER__lily_Debug /home/jae/CLionProjects/vk-framework-impl/framework/src/Shader/utils/spv_reflect_util.cpp || cmake_object_order_depends_target_lily
+  DEP_FILE = CMakeFiles/lily.dir/framework/src/Shader/utils/spv_reflect_util.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/jae/CLionProjects/vk-framework-impl/framework/inc -I/home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/include -I/home/jae/CLionProjects/vk-framework-impl/external/glm/glm/..
+  OBJECT_DIR = CMakeFiles/lily.dir
+  OBJECT_FILE_DIR = CMakeFiles/lily.dir/framework/src/Shader/utils
+
+build CMakeFiles/lily.dir/framework/src/Resources/Image/vk_image_util.cpp.o: CXX_COMPILER__lily_Debug /home/jae/CLionProjects/vk-framework-impl/framework/src/Resources/Image/vk_image_util.cpp || cmake_object_order_depends_target_lily
+  DEP_FILE = CMakeFiles/lily.dir/framework/src/Resources/Image/vk_image_util.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/jae/CLionProjects/vk-framework-impl/framework/inc -I/home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/include -I/home/jae/CLionProjects/vk-framework-impl/external/glm/glm/..
+  OBJECT_DIR = CMakeFiles/lily.dir
+  OBJECT_FILE_DIR = CMakeFiles/lily.dir/framework/src/Resources/Image
+
+build CMakeFiles/lily.dir/framework/src/Resources/Image/Texture2D.cpp.o: CXX_COMPILER__lily_Debug /home/jae/CLionProjects/vk-framework-impl/framework/src/Resources/Image/Texture2D.cpp || cmake_object_order_depends_target_lily
+  DEP_FILE = CMakeFiles/lily.dir/framework/src/Resources/Image/Texture2D.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/jae/CLionProjects/vk-framework-impl/framework/inc -I/home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/include -I/home/jae/CLionProjects/vk-framework-impl/external/glm/glm/..
+  OBJECT_DIR = CMakeFiles/lily.dir
+  OBJECT_FILE_DIR = CMakeFiles/lily.dir/framework/src/Resources/Image
 
 
 # =============================================================================
@@ -226,7 +306,7 @@ build CMakeFiles/lily.dir/framework/src/Shader/Shader.cpp.o: CXX_COMPILER__lily_
 #############################################
 # Link the static library liblily.a
 
-build liblily.a: CXX_STATIC_LIBRARY_LINKER__lily_Debug CMakeFiles/lily.dir/framework/src/Window/WindowBase.cpp.o CMakeFiles/lily.dir/framework/src/Window/Linux/Window.cpp.o CMakeFiles/lily.dir/framework/src/Device/utils/vk_instance_and_device_utils.cpp.o CMakeFiles/lily.dir/framework/src/common/vk_layer_and_extension_utils.cpp.o CMakeFiles/lily.dir/framework/src/Device/Device.cpp.o CMakeFiles/lily.dir/framework/src/Commands/utils/vk_command_X_utils.cpp.o CMakeFiles/lily.dir/framework/src/Commands/Commands.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Buffer.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Image.cpp.o CMakeFiles/lily.dir/framework/src/Resources/utils/vk_buffer_util.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Buffer/VertexBuffer.cpp.o CMakeFiles/lily.dir/framework/src/Shader/utils/vk_descriptor_util.cpp.o CMakeFiles/lily.dir/framework/src/Window/Linux/vk_render_surface.cpp.o CMakeFiles/lily.dir/framework/src/Shader/Shader.cpp.o || external/glfw-3.3.8/src/libglfw3.a liblog_util.a libvk_loader.a
+build liblily.a: CXX_STATIC_LIBRARY_LINKER__lily_Debug CMakeFiles/lily.dir/framework/src/Window/WindowBase.cpp.o CMakeFiles/lily.dir/framework/src/Window/Linux/Window.cpp.o CMakeFiles/lily.dir/framework/src/Device/utils/vk_instance_and_device_utils.cpp.o CMakeFiles/lily.dir/framework/src/common/vk_layer_and_extension_utils.cpp.o CMakeFiles/lily.dir/framework/src/Device/Device.cpp.o CMakeFiles/lily.dir/framework/src/Commands/utils/vk_command_X_utils.cpp.o CMakeFiles/lily.dir/framework/src/Commands/Commands.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Buffer.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Image.cpp.o CMakeFiles/lily.dir/framework/src/Resources/utils/vk_buffer_util.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Buffer/VertexBuffer.cpp.o CMakeFiles/lily.dir/framework/src/Shader/utils/vk_descriptor_util.cpp.o CMakeFiles/lily.dir/framework/src/Window/Linux/vk_render_surface.cpp.o CMakeFiles/lily.dir/framework/src/Shader/utils/shader_utils.cpp.o CMakeFiles/lily.dir/framework/src/Renderer/Renderer.cpp.o CMakeFiles/lily.dir/framework/src/Renderer/utils/vk_render_X_utils.cpp.o CMakeFiles/lily.dir/framework/src/Shader/ShaderBuilder.cpp.o CMakeFiles/lily.dir/framework/src/Shader/Shader.cpp.o CMakeFiles/lily.dir/framework/src/Shader/utils/spv_reflect_util.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Image/vk_image_util.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Image/Texture2D.cpp.o || external/glfw-3.3.8/src/libglfw3.a liblog_util.a libspv_reflect.a libvk_loader.a
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles/lily.dir
   POST_BUILD = :
@@ -241,7 +321,7 @@ build liblily.a: CXX_STATIC_LIBRARY_LINKER__lily_Debug CMakeFiles/lily.dir/frame
 #############################################
 # Order-only phony target for vk_framework_impl
 
-build cmake_object_order_depends_target_vk_framework_impl: phony || cmake_object_order_depends_target_glfw cmake_object_order_depends_target_lily cmake_object_order_depends_target_log_util cmake_object_order_depends_target_vk_loader
+build cmake_object_order_depends_target_vk_framework_impl: phony || cmake_object_order_depends_target_glfw cmake_object_order_depends_target_lily cmake_object_order_depends_target_log_util cmake_object_order_depends_target_spv_reflect cmake_object_order_depends_target_vk_loader
 
 build CMakeFiles/vk_framework_impl.dir/main.cpp.o: CXX_COMPILER__vk_framework_impl_Debug /home/jae/CLionProjects/vk-framework-impl/main.cpp || cmake_object_order_depends_target_vk_framework_impl
   DEP_FILE = CMakeFiles/vk_framework_impl.dir/main.cpp.o.d
@@ -258,9 +338,9 @@ build CMakeFiles/vk_framework_impl.dir/main.cpp.o: CXX_COMPILER__vk_framework_im
 #############################################
 # Link the executable vk_framework_impl
 
-build vk_framework_impl: CXX_EXECUTABLE_LINKER__vk_framework_impl_Debug CMakeFiles/vk_framework_impl.dir/main.cpp.o | liblily.a libvk_loader.a liblog_util.a external/glfw-3.3.8/src/libglfw3.a /usr/lib/librt.a /usr/lib/libm.so /usr/lib/libX11.so || external/glfw-3.3.8/src/libglfw3.a liblily.a liblog_util.a libvk_loader.a
+build vk_framework_impl: CXX_EXECUTABLE_LINKER__vk_framework_impl_Debug CMakeFiles/vk_framework_impl.dir/main.cpp.o | liblily.a libvk_loader.a liblog_util.a external/glfw-3.3.8/src/libglfw3.a /usr/lib/librt.a /usr/lib/libm.so /usr/lib/libX11.so /home/jae/CLionProjects/vk-framework-impl/external/shaderc/lib/libshaderc_combined.a libspv_reflect.a || external/glfw-3.3.8/src/libglfw3.a liblily.a liblog_util.a libspv_reflect.a libvk_loader.a
   FLAGS = -g
-  LINK_LIBRARIES = liblily.a  libvk_loader.a  liblog_util.a  external/glfw-3.3.8/src/libglfw3.a  /usr/lib/librt.a  -lm  -ldl  /usr/lib/libX11.so
+  LINK_LIBRARIES = liblily.a  libvk_loader.a  liblog_util.a  external/glfw-3.3.8/src/libglfw3.a  /usr/lib/librt.a  -lm  -ldl  /usr/lib/libX11.so  /home/jae/CLionProjects/vk-framework-impl/external/shaderc/lib/libshaderc_combined.a  libspv_reflect.a
   OBJECT_DIR = CMakeFiles/vk_framework_impl.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -580,6 +660,8 @@ build lily: phony liblily.a
 
 build log_util: phony liblog_util.a
 
+build spv_reflect: phony libspv_reflect.a
+
 build update_mappings: phony external/glfw-3.3.8/src/update_mappings
 
 build vk_loader: phony libvk_loader.a
@@ -592,7 +674,7 @@ build vk_loader: phony libvk_loader.a
 #############################################
 # Folder: /home/jae/CLionProjects/vk-framework-impl/cmake-build-debug
 
-build all: phony liblog_util.a libvk_loader.a liblily.a vk_framework_impl external/glm/all external/glfw-3.3.8/all
+build all: phony libspv_reflect.a liblog_util.a libvk_loader.a liblily.a vk_framework_impl external/glm/all external/glfw-3.3.8/all
 
 # =============================================================================
 
@@ -629,14 +711,14 @@ build external/glm/glm/all: phony
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /home/jae/CLionProjects/vk-framework-impl/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/glfw3.pc.in /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/glfw3Config.cmake.in /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/glfw_config.h.in /home/jae/CLionProjects/vk-framework-impl/external/glm/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glm/glm/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/framework/inc/Window/plat_window.h.in /home/jae/CLionProjects/vk-framework-impl/framework/inc/Window/vk_render_surface.h.in /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckFunctionExists.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindFontconfig.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindFreetype.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPkgConfig.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindX11.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/SelectLibraryConfigurations.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /home/jae/CLionProjects/vk-framework-impl/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/glfw3.pc.in /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/glfw3Config.cmake.in /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/glfw_config.h.in /home/jae/CLionProjects/vk-framework-impl/external/glm/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glm/glm/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/framework/inc/Resources/stb_image.h.in /home/jae/CLionProjects/vk-framework-impl/framework/inc/Shader/utils/spirv_reflect.h.in /home/jae/CLionProjects/vk-framework-impl/framework/inc/Window/plat_window.h.in /home/jae/CLionProjects/vk-framework-impl/framework/inc/Window/vk_render_surface.h.in /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckFunctionExists.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindFontconfig.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindFreetype.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPkgConfig.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindX11.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/SelectLibraryConfigurations.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /home/jae/CLionProjects/vk-framework-impl/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/glfw3.pc.in /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/glfw3Config.cmake.in /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/glfw_config.h.in /home/jae/CLionProjects/vk-framework-impl/external/glm/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glm/glm/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/framework/inc/Window/plat_window.h.in /home/jae/CLionProjects/vk-framework-impl/framework/inc/Window/vk_render_surface.h.in /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckFunctionExists.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindFontconfig.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindFreetype.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPkgConfig.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindX11.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/SelectLibraryConfigurations.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake: phony
+build /home/jae/CLionProjects/vk-framework-impl/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/glfw3.pc.in /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/glfw3Config.cmake.in /home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/src/glfw_config.h.in /home/jae/CLionProjects/vk-framework-impl/external/glm/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/external/glm/glm/CMakeLists.txt /home/jae/CLionProjects/vk-framework-impl/framework/inc/Resources/stb_image.h.in /home/jae/CLionProjects/vk-framework-impl/framework/inc/Shader/utils/spirv_reflect.h.in /home/jae/CLionProjects/vk-framework-impl/framework/inc/Window/plat_window.h.in /home/jae/CLionProjects/vk-framework-impl/framework/inc/Window/vk_render_surface.h.in /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckFunctionExists.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindFontconfig.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindFreetype.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPkgConfig.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindX11.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/SelectLibraryConfigurations.cmake /home/jae/Programs/clion-2022.3.1/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake: phony
 
 
 #############################################

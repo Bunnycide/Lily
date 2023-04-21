@@ -13,6 +13,17 @@ configure_file(${INC_DIR}/Window/vk_render_surface.h.in
 configure_file(${INC_DIR}/Window/plat_window.h.in
         ${INC_DIR}/Window/plat_window.h)
 
+configure_file(${INC_DIR}/Shader/utils/spirv_reflect.h.in
+        ${INC_DIR}/Shader/utils/spirv_reflect.h)
+
+configure_file(${INC_DIR}/Resources/stb_image.h.in
+        ${INC_DIR}/Resources/stb_image.h)
+
+# ===================================
+# Add spv_reflect
+add_library(spv_reflect ${EXTERNAL_DIR}/spirv-reflect/spirv_reflect.cpp)
+# ===================================
+
 # ===================================
 # Build glm
 add_subdirectory(${EXTERNAL_DIR}/glm)
@@ -21,6 +32,13 @@ add_subdirectory(${EXTERNAL_DIR}/glm)
 # ===================================
 # Build GLFW
 add_subdirectory(${EXTERNAL_DIR}/glfw-3.3.8)
+# ===================================
+
+# ===================================
+# Add shaderc lib
+add_library(shaderc STATIC IMPORTED)
+set_target_properties(shaderc PROPERTIES IMPORTED_LOCATION
+        ${EXTERNAL_DIR}/shaderc/lib/libshaderc_combined.a)
 # ===================================
 
 # ===================================
@@ -56,12 +74,17 @@ add_library(lily    ${SRC_DIR}/Window/WindowBase.cpp
                     ${SRC_DIR}/Resources/Buffer/VertexBuffer.cpp
                     ${SRC_DIR}/Shader/utils/vk_descriptor_util.cpp
                     ${SRC_DIR}/Window/${CMAKE_SYSTEM_NAME}/vk_render_surface.cpp
-                    ${SRC_DIR}/Shader/Shader.cpp)
+                    ${SRC_DIR}/Shader/utils/shader_utils.cpp
+                    ${SRC_DIR}/Renderer/Renderer.cpp
+                    ${SRC_DIR}/Renderer/utils/vk_render_X_utils.cpp
+                    framework/src/Shader/ShaderBuilder.cpp
+                    framework/src/Shader/Shader.cpp
+                    framework/src/Shader/utils/spv_reflect_util.cpp framework/src/Resources/Image/vk_image_util.cpp framework/src/Resources/Image/Texture2D.cpp)
 # ===================================
 
 # ===================================
 # Link required libs to lily
-target_link_libraries(lily PUBLIC vk_loader glfw glm)
+target_link_libraries(lily PUBLIC vk_loader glfw glm shaderc spv_reflect)
 # ===================================
 
 # ===================================

@@ -6,6 +6,7 @@
 #define VK_FRAMEWORK_IMPL_LILY_MACROS_H
 
 #include <vk_loader/vulkan/vk_enum_string_helper.h>
+#include <Log/Log.h>
 
 #define VK_CHECK_RESULT(f)																				\
 {																										\

@@ -2,74 +2,24 @@
 // Created by jae on 06/04/23.
 //
 
+#include <Shader/utils/shader_utils.h>
+#include <iosfwd>
+#include <shaderc/shaderc.hpp>
+#include <Log/Log.h>
+#include <fstream>
+#include <sstream>
+#include <string>
 
-
-void Shader::compileShader(VkDevice logicalDevice,
-                           const char *vertShaderPath,
-                           const char *fragShaderPath) {
-
-    std::string vertShaderSource; getShaderString(vertShaderPath, vertShaderSource);
-    std::string fragShaderSource; getShaderString(fragShaderPath, fragShaderSource);
-
-    shaderModules[ShaderType_VERTEX] = *new VkShaderModule;
-    shaderModules[ShaderType_FRAGMENT] = *new VkShaderModule;
-
-    const std::vector<uint32_t> vertCompileResult = compileShaderToSpv(vertShaderSource, VK_SHADER_STAGE_VERTEX_BIT);
-    const std::vector<uint32_t> fragCompileResult = compileShaderToSpv(fragShaderSource, VK_SHADER_STAGE_FRAGMENT_BIT);
-
-    Shader::vertexInfo = generateVertexInfo(vertCompileResult);
-
-    std::vector<DescriptorSetLayoutData> vertDesc = generateDescriptorInfo(vertCompileResult);
-    std::vector<DescriptorSetLayoutData> fragDesc = generateDescriptorInfo(fragCompileResult);
-
-    for(auto& desc : vertDesc){
-        for(auto& binding : desc.bindings){
-            layout_bindings.push_back(binding);
-        }
-    }
-
-    for(auto& desc : fragDesc){
-        for(auto& binding : desc.bindings){
-            layout_bindings.push_back(binding);
-        }
-    }
-
-    VK_CHECK_RESULT(buildShaderFromSource(logicalDevice,
-                                          vertCompileResult,
-                                          &shaderModules[ShaderType_VERTEX]))
-
-    VK_CHECK_RESULT(buildShaderFromSource(logicalDevice,
-                                          fragCompileResult,
-                                          &shaderModules[ShaderType_FRAGMENT]))
-}
-
-void Shader::deleteShader(VkDevice logicalDevice){
-    for(auto const &[key, value] : shaderModules){
-        vkDestroyShaderModule(logicalDevice, value, nullptr);
-    }
-}
-
-VkShaderModule Shader::getShaderModule(ShaderTypes type){
-    return shaderModules[type];
-}
-
-void getShaderString(const std::string& relativePath,
+void getShaderString(const std::string& shaderPath,
                              std::string &shaderData) {
-
-    std::string assetPath;
-    getAssetPath(relativePath, assetPath);
-
-    Log::info(assetPath.c_str());
-
     std::ifstream shaderFile;
-    shaderFile.open(assetPath);
+    shaderFile.open(shaderPath);
 
     std::string line;
-
     std::stringbuf buf;
 
     if(shaderFile.is_open()){
-        while(getline(shaderFile, line)){
+        while (getline(shaderFile, line)){
             buf.sputn(line.c_str(), line.size());
             buf.sputc('\n');
         }
@@ -79,7 +29,7 @@ void getShaderString(const std::string& relativePath,
     shaderData = shaderString;
 }
 
-shaderc_shader_kind getShadercShaderType(VkShaderStageFlagBits type) {
+shaderc_shader_kind getShadercShaderType(VkShaderStageFlags type) {
     switch (type) {
         case VK_SHADER_STAGE_VERTEX_BIT:
             return shaderc_glsl_vertex_shader;
@@ -101,7 +51,7 @@ shaderc_shader_kind getShadercShaderType(VkShaderStageFlagBits type) {
 }
 
 std::vector<uint32_t> compileShaderToSpv(std::string &shaderSource,
-                                    VkShaderStageFlagBits type){
+                                    VkShaderStageFlags type){
     shaderc::Compiler       compiler;
     shaderc::CompileOptions options;
     std::vector<uint32_t>   compilerResult;

@@ -142,6 +142,12 @@ struct CopyDescriptorInfo {
     uint32_t DescriptorCount;
 };
 
+struct ShaderInfo{
+    uint32_t* spv_src;
+    uint32_t size;
+    VkShaderStageFlags type;
+};
+
 struct QueueInfo{
     std::vector<VkQueue> queues;
     std::vector<float> queuePriorities;
