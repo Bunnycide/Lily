@@ -27,10 +27,10 @@ int main() {
 
     ShaderBuilder shaderBuilder;
     shaderBuilder.addShader(device,
-                            "/home/jae/CLionProjects/vk-framework-impl/shaders/shader.vert",
+                            "/shaders/shader.vert",
                             VK_SHADER_STAGE_VERTEX_BIT)
             ->addShader(device,
-                        "/home/jae/CLionProjects/vk-framework-impl/shaders/shader.frag",
+                        "/shaders/shader.frag",
                         VK_SHADER_STAGE_FRAGMENT_BIT);
 
     // Start main loop

@@ -5,6 +5,6 @@
 #ifndef VK_FRAMEWORK_IMPL_STB_IMAGE_IN_H
 #define VK_FRAMEWORK_IMPL_STB_IMAGE_IN_H
 
-#include "/home/jae/CLionProjects/vk-framework-impl/external/stb/stb_image.h";
+#include "/home/jae/CLionProjects/vk-framework-impl/external/stb/stb_image.h"
 
 #endif //VK_FRAMEWORK_IMPL_STB_IMAGE_IN_H

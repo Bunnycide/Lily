@@ -3,21 +3,35 @@ project(vk_framework_impl)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(INC_DIR ${CMAKE_SOURCE_DIR}/framework/inc)
-set(SRC_DIR ${CMAKE_SOURCE_DIR}/framework/src)
-set(EXTERNAL_DIR ${CMAKE_SOURCE_DIR}/external)
+set(INC_DIR         ${CMAKE_SOURCE_DIR}/framework/inc)
+set(SRC_DIR         ${CMAKE_SOURCE_DIR}/framework/src)
+set(EXTERNAL_DIR    ${CMAKE_SOURCE_DIR}/external)
+set(ASSET_FOLDER    ${CMAKE_SOURCE_DIR}/assets)
 
-configure_file(${INC_DIR}/Window/vk_render_surface.h.in
-               ${INC_DIR}/Window/vk_render_surface.h)
+# render surface impl
+configure_file( ${INC_DIR}/Window/vk_render_surface.h.in
+                ${INC_DIR}/Window/vk_render_surface.h)
 
-configure_file(${INC_DIR}/Window/plat_window.h.in
-        ${INC_DIR}/Window/plat_window.h)
+# platform windows
+configure_file( ${INC_DIR}/Window/plat_window.h.in
+                ${INC_DIR}/Window/plat_window.h)
 
-configure_file(${INC_DIR}/Shader/utils/spirv_reflect.h.in
-        ${INC_DIR}/Shader/utils/spirv_reflect.h)
+# spir-v pseudo include
+configure_file( ${INC_DIR}/Shader/utils/spirv_reflect.h.in
+                ${INC_DIR}/Shader/utils/spirv_reflect.h)
 
-configure_file(${INC_DIR}/Resources/stb_image.h.in
-        ${INC_DIR}/Resources/stb_image.h)
+# stb pseudo include
+configure_file( ${INC_DIR}/Resources/stb_image.h.in
+                ${INC_DIR}/Resources/stb_image.h)
+
+# asset folder define
+configure_file( ${INC_DIR}/Resources/asset_folder.h.in
+                ${INC_DIR}/Resources/asset_folder.h)
+
+# ===================================
+# Add stb image lib
+add_library(stb_image ${EXTERNAL_DIR}/stb/stb_loader.cpp)
+# ===================================
 
 # ===================================
 # Add spv_reflect
@@ -79,12 +93,12 @@ add_library(lily    ${SRC_DIR}/Window/WindowBase.cpp
                     ${SRC_DIR}/Renderer/utils/vk_render_X_utils.cpp
                     framework/src/Shader/ShaderBuilder.cpp
                     framework/src/Shader/Shader.cpp
-                    framework/src/Shader/utils/spv_reflect_util.cpp framework/src/Resources/Image/vk_image_util.cpp framework/src/Resources/Image/Texture2D.cpp)
+                    framework/src/Shader/utils/spv_reflect_util.cpp framework/src/Resources/Image/vk_image_util.cpp framework/src/Resources/Image/Texture2D.cpp framework/src/Resources/asset_utils.cpp)
 # ===================================
 
 # ===================================
 # Link required libs to lily
-target_link_libraries(lily PUBLIC vk_loader glfw glm shaderc spv_reflect)
+target_link_libraries(lily PUBLIC vk_loader glfw glm shaderc spv_reflect stb_image)
 # ===================================
 
 # ===================================

@@ -10,6 +10,7 @@
 #include <cstring>
 #include <Resources/utils/vk_image_util.h>
 #include <Commands/utils/vk_command_X_utils.h>
+#include <Resources/asset_utils.h>
 
 bool H_LoadImageDataFromFile(const char * filePath,
                                       ImageInfo& imageInfo) {
