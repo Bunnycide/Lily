@@ -91,9 +91,12 @@ add_library(lily    ${SRC_DIR}/Window/WindowBase.cpp
                     ${SRC_DIR}/Shader/utils/shader_utils.cpp
                     ${SRC_DIR}/Renderer/Renderer.cpp
                     ${SRC_DIR}/Renderer/utils/vk_render_X_utils.cpp
-                    framework/src/Shader/ShaderBuilder.cpp
-                    framework/src/Shader/Shader.cpp
-                    framework/src/Shader/utils/spv_reflect_util.cpp framework/src/Resources/Image/vk_image_util.cpp framework/src/Resources/Image/Texture2D.cpp framework/src/Resources/asset_utils.cpp)
+                    ${SRC_DIR}/Shader/ShaderBuilder.cpp
+                    ${SRC_DIR}/Shader/Shader.cpp
+                    ${SRC_DIR}/Shader/utils/spv_reflect_util.cpp
+                    ${SRC_DIR}/Resources/Image/vk_image_util.cpp
+                    ${SRC_DIR}/Resources/Image/Texture2D.cpp
+                    ${SRC_DIR}/Resources/asset_utils.cpp framework/src/Resources/Image/depth_util.cpp framework/src/Renderer/utils/vk_swapchain_utils.cpp)
 # ===================================
 
 # ===================================

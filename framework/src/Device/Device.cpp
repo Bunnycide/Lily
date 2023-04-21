@@ -6,8 +6,9 @@
 #include <Log/Log.h>
 #include <common/vk_layer_and_extension_utils.h>
 #include <Device/utils/vk_instance_and_device_utils.h>
+#include "common/lily_macros.h"
 
-Device::Device(WindowBase& window){
+Device::Device(WindowBase& mwindow){
 
     if(! loadVulkan()){
         Log::info("Failed to load vulkan");
@@ -26,10 +27,15 @@ Device::Device(WindowBase& window){
         return;
     }
 
-    window.createWindowSurface(instance);
+    mwindow.createWindowSurface(instance);
 
     if(!  pickPhysicalDevice()){
         Log::error("Could not find suitable physical device");
+        return;
+    }
+
+    if(!fetchRenderSurfaceFormats(mwindow.surface)){
+        Log::error("Could not find suitable surface formats");
         return;
     }
 
@@ -115,6 +121,27 @@ bool Device::allocateCommandPools() {
     graphicsCommands.allocate(logicalDevice, 2, graphicsQueueSet.queueFamilyIndex);
     computeCommands.allocate(logicalDevice, 2, computeQueueSet.queueFamilyIndex);
     transferCommands.allocate(logicalDevice, 2, transferQueueSet.queueFamilyIndex);
+
+    return true;
+}
+
+bool Device::fetchRenderSurfaceFormats(VkSurfaceKHR& surface) {
+    uint32_t count = 0;
+    VK_CHECK_RESULT(vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice,
+                                                         surface,
+                                                         &count, nullptr))
+
+    if(count <= 0){
+        Log::info("Found no surface formats");
+        windowSurfaceFormats.resize(0);
+        return false;
+    }
+
+    windowSurfaceFormats.resize(count);
+    VK_CHECK_RESULT(vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice,
+                                                         surface,
+                                                         &count, windowSurfaceFormats.data()))
+
 
     return true;
 }

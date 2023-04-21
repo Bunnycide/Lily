@@ -5,6 +5,9 @@
 #ifndef VK_FRAMEWORK_DEPTH_UTIL_H
 #define VK_FRAMEWORK_DEPTH_UTIL_H
 
+#include <vk_loader/vk_loader.h>
+#include <common/lily_structs.h>
+
 VkFormat H_findSupportedFormat(VkPhysicalDevice ,
                                VkDevice ,
                                VkPhysicalDeviceMemoryProperties ,

@@ -336,6 +336,20 @@ build CMakeFiles/lily.dir/framework/src/Resources/asset_utils.cpp.o: CXX_COMPILE
   OBJECT_DIR = CMakeFiles/lily.dir
   OBJECT_FILE_DIR = CMakeFiles/lily.dir/framework/src/Resources
 
+build CMakeFiles/lily.dir/framework/src/Resources/Image/depth_util.cpp.o: CXX_COMPILER__lily_Debug /home/jae/CLionProjects/vk-framework-impl/framework/src/Resources/Image/depth_util.cpp || cmake_object_order_depends_target_lily
+  DEP_FILE = CMakeFiles/lily.dir/framework/src/Resources/Image/depth_util.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/jae/CLionProjects/vk-framework-impl/framework/inc -I/home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/include -I/home/jae/CLionProjects/vk-framework-impl/external/glm/glm/..
+  OBJECT_DIR = CMakeFiles/lily.dir
+  OBJECT_FILE_DIR = CMakeFiles/lily.dir/framework/src/Resources/Image
+
+build CMakeFiles/lily.dir/framework/src/Renderer/utils/vk_swapchain_utils.cpp.o: CXX_COMPILER__lily_Debug /home/jae/CLionProjects/vk-framework-impl/framework/src/Renderer/utils/vk_swapchain_utils.cpp || cmake_object_order_depends_target_lily
+  DEP_FILE = CMakeFiles/lily.dir/framework/src/Renderer/utils/vk_swapchain_utils.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/jae/CLionProjects/vk-framework-impl/framework/inc -I/home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8/include -I/home/jae/CLionProjects/vk-framework-impl/external/glm/glm/..
+  OBJECT_DIR = CMakeFiles/lily.dir
+  OBJECT_FILE_DIR = CMakeFiles/lily.dir/framework/src/Renderer/utils
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target lily
@@ -344,7 +358,7 @@ build CMakeFiles/lily.dir/framework/src/Resources/asset_utils.cpp.o: CXX_COMPILE
 #############################################
 # Link the static library liblily.a
 
-build liblily.a: CXX_STATIC_LIBRARY_LINKER__lily_Debug CMakeFiles/lily.dir/framework/src/Window/WindowBase.cpp.o CMakeFiles/lily.dir/framework/src/Window/Linux/Window.cpp.o CMakeFiles/lily.dir/framework/src/Device/utils/vk_instance_and_device_utils.cpp.o CMakeFiles/lily.dir/framework/src/common/vk_layer_and_extension_utils.cpp.o CMakeFiles/lily.dir/framework/src/Device/Device.cpp.o CMakeFiles/lily.dir/framework/src/Commands/utils/vk_command_X_utils.cpp.o CMakeFiles/lily.dir/framework/src/Commands/Commands.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Buffer.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Image.cpp.o CMakeFiles/lily.dir/framework/src/Resources/utils/vk_buffer_util.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Buffer/VertexBuffer.cpp.o CMakeFiles/lily.dir/framework/src/Shader/utils/vk_descriptor_util.cpp.o CMakeFiles/lily.dir/framework/src/Window/Linux/vk_render_surface.cpp.o CMakeFiles/lily.dir/framework/src/Shader/utils/shader_utils.cpp.o CMakeFiles/lily.dir/framework/src/Renderer/Renderer.cpp.o CMakeFiles/lily.dir/framework/src/Renderer/utils/vk_render_X_utils.cpp.o CMakeFiles/lily.dir/framework/src/Shader/ShaderBuilder.cpp.o CMakeFiles/lily.dir/framework/src/Shader/Shader.cpp.o CMakeFiles/lily.dir/framework/src/Shader/utils/spv_reflect_util.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Image/vk_image_util.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Image/Texture2D.cpp.o CMakeFiles/lily.dir/framework/src/Resources/asset_utils.cpp.o || external/glfw-3.3.8/src/libglfw3.a liblog_util.a libspv_reflect.a libstb_image.a libvk_loader.a
+build liblily.a: CXX_STATIC_LIBRARY_LINKER__lily_Debug CMakeFiles/lily.dir/framework/src/Window/WindowBase.cpp.o CMakeFiles/lily.dir/framework/src/Window/Linux/Window.cpp.o CMakeFiles/lily.dir/framework/src/Device/utils/vk_instance_and_device_utils.cpp.o CMakeFiles/lily.dir/framework/src/common/vk_layer_and_extension_utils.cpp.o CMakeFiles/lily.dir/framework/src/Device/Device.cpp.o CMakeFiles/lily.dir/framework/src/Commands/utils/vk_command_X_utils.cpp.o CMakeFiles/lily.dir/framework/src/Commands/Commands.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Buffer.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Image.cpp.o CMakeFiles/lily.dir/framework/src/Resources/utils/vk_buffer_util.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Buffer/VertexBuffer.cpp.o CMakeFiles/lily.dir/framework/src/Shader/utils/vk_descriptor_util.cpp.o CMakeFiles/lily.dir/framework/src/Window/Linux/vk_render_surface.cpp.o CMakeFiles/lily.dir/framework/src/Shader/utils/shader_utils.cpp.o CMakeFiles/lily.dir/framework/src/Renderer/Renderer.cpp.o CMakeFiles/lily.dir/framework/src/Renderer/utils/vk_render_X_utils.cpp.o CMakeFiles/lily.dir/framework/src/Shader/ShaderBuilder.cpp.o CMakeFiles/lily.dir/framework/src/Shader/Shader.cpp.o CMakeFiles/lily.dir/framework/src/Shader/utils/spv_reflect_util.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Image/vk_image_util.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Image/Texture2D.cpp.o CMakeFiles/lily.dir/framework/src/Resources/asset_utils.cpp.o CMakeFiles/lily.dir/framework/src/Resources/Image/depth_util.cpp.o CMakeFiles/lily.dir/framework/src/Renderer/utils/vk_swapchain_utils.cpp.o || external/glfw-3.3.8/src/libglfw3.a liblog_util.a libspv_reflect.a libstb_image.a libvk_loader.a
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles/lily.dir
   POST_BUILD = :

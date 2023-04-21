@@ -8,10 +8,19 @@
 #include <Device/Device.h>
 #include <common/lily_structs.h>
 #include <Shader/ShaderBuilder.h>
+#include "Window/Linux/Window.h"
 
 class Renderer {
+private:
+    void createDepthAttachment  (Device&,   Window&);
+    void createSwapChain        (Device&,    Window&);
+    void setupRenderer          (Device&,    Window&, ShaderBuilder&);
+public:
+    explicit Renderer(Device& , Window&, ShaderBuilder& );
+
     VulkanRender render;
-    explicit Renderer(Device device, ShaderBuilder builder);
+    VulkanSwapChain swapChain;
+    DescriptorData descriptorData;
 };
 
 

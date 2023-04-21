@@ -14,7 +14,7 @@ class ShaderBuilder {
 public:
     ShaderBuilder() = default;
     VertexInfo vertexInfo;
-    std::vector<DescriptorSetLayoutData> descriptorData;
+    std::vector<DescriptorSetLayoutData> allDescriptorData;
 
     std::vector<VkShaderModule> shaderModules;
 

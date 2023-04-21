@@ -9,6 +9,8 @@ void Window::createWindow(int width, int height){
 
     Window::width = width;
     Window::height = height;
+    this->width = width;
+    this->height = height;
 
     createWindow(width, height, "lily-window");
 }

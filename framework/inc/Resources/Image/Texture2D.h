@@ -6,6 +6,7 @@
 #define VK_FRAMEWORK_TEXTURE2D_H
 
 #include <common/lily_structs.h>
+#include <Device/Device.h>
 
 bool H_LoadImageDataFromFile(const char * filePath,
                              ImageInfo& imageInfo);
@@ -15,13 +16,7 @@ public:
     ImageInfo texture;
     VkSampler  sampler;
 
-    Texture2D() = default;
-
-    void create(VkPhysicalDevice, VkDevice,
-              VkQueue ,
-              VkCommandBuffer ,
-              VkPhysicalDeviceMemoryProperties,
-              const char* );
+    Texture2D(Device, const char* );
 };
 
 

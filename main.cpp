@@ -7,6 +7,7 @@
 #include <Resources/Buffer/VertexBuffer.h>
 #include "Shader/Shader.h"
 #include <Shader/ShaderBuilder.h>
+#include "Renderer/Renderer.h"
 
 void drawFrame(long dealtTime);
 
@@ -26,12 +27,15 @@ int main() {
     Device device(window);
 
     ShaderBuilder shaderBuilder;
+
     shaderBuilder.addShader(device,
                             "/shaders/shader.vert",
                             VK_SHADER_STAGE_VERTEX_BIT)
             ->addShader(device,
                         "/shaders/shader.frag",
                         VK_SHADER_STAGE_FRAGMENT_BIT);
+
+    Renderer renderer(device, window, shaderBuilder);
 
     // Start main loop
     window.mainLoop();

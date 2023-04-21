@@ -15,9 +15,11 @@ private:
     bool pickPhysicalDevice();
     bool createLogicalDevice();
     bool allocateCommandPools();
+    bool fetchRenderSurfaceFormats(VkSurfaceKHR&);
 
 public:
     VkPhysicalDeviceMemoryProperties physicalDeviceMemoryProperties;
+    std::vector<VkSurfaceFormatKHR> windowSurfaceFormats;
 
     QueueInfo graphicsQueueSet;
     QueueInfo transferQueueSet;

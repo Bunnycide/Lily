@@ -28,8 +28,8 @@ void H_allocateDescriptorSets(VkDevice logicalDevice,
 }
 
 void H_createDescriptorSetLayout(VkDevice logicalDevice,
-                                 const std::vector<VkDescriptorSetLayoutBinding>& layout_bindings,
-                                 VkDescriptorSetLayout& layout){
+                                                         const std::vector<VkDescriptorSetLayoutBinding>& layout_bindings,
+                                                         VkDescriptorSetLayout& layout){
 
     VkDescriptorSetLayoutCreateInfo layoutCreateInfo{
         .sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO,

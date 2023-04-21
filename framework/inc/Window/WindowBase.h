@@ -20,7 +20,7 @@ public:
 
     // Window surface creation logic
     virtual void createWindowSurface    (VkInstance)            = 0;
-
+    
 protected:
 
 };

@@ -2,24 +2,14 @@
 // Created by jae on 04/04/23.
 //
 
-#include "includes.h"
+#include <Renderer/utils/vk_swapchain_utils.h>
+#include <common/lily_macros.h>
+#include <array>
 
 VkSurfaceFormatKHR
-H_findPresentSurfaceImageFormat(VkPhysicalDevice& physicalDevice,
-                                VkSurfaceKHR& surface){
-    uint32_t surfaceFormatCount;
-    VK_CHECK_RESULT(vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, &surfaceFormatCount, nullptr))
+H_findPresentSurfaceImageFormat(std::vector<VkSurfaceFormatKHR>& surfaceFormats){
 
-    if(surfaceFormatCount <= 0){
-        Log::info("No suitable surface format, found 0 formats, using default");
-        return {VK_FORMAT_B8G8R8A8_SRGB, VK_COLOR_SPACE_SRGB_NONLINEAR_KHR};
-    }
-
-    auto* surfaceFormats = new VkSurfaceFormatKHR[surfaceFormatCount];
-
-    VK_CHECK_RESULT(vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, &surfaceFormatCount, surfaceFormats))
-
-    for(uint32_t i = 0; i < surfaceFormatCount; i++){
+    for(uint32_t i = 0; i < surfaceFormats.size(); i++){
         if( (surfaceFormats[i].format == VK_FORMAT_B8G8R8A8_SRGB) &&
             (surfaceFormats[i].colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR))
         {
@@ -28,8 +18,6 @@ H_findPresentSurfaceImageFormat(VkPhysicalDevice& physicalDevice,
     }
 
     Log::info("No suitable surface format found, using default");
-
-    delete[] surfaceFormats;
 
     return {VK_FORMAT_B8G8R8A8_SRGB, VK_COLOR_SPACE_SRGB_NONLINEAR_KHR};
 }
@@ -186,6 +174,7 @@ void H_getSwapChainImages(VkDevice& logicalDevice, VkSwapchainKHR& swapChain  ,s
 }
 
 void H_createSwapChain(VkPhysicalDevice& physicalDevice,
+                       std::vector<VkSurfaceFormatKHR>& surfaceFormats,
                        VkDevice& logicalDevice,
                        VkSurfaceKHR& surface,
                        uint16_t width,
@@ -199,7 +188,7 @@ void H_createSwapChain(VkPhysicalDevice& physicalDevice,
     uint32_t presentationFamilyIndex =
             H_findPresentationQueueFamily(physicalDevice, surface, queueInfos);
     VkSurfaceFormatKHR surfaceFormat =
-            H_findPresentSurfaceImageFormat(physicalDevice, surface);
+            H_findPresentSurfaceImageFormat(surfaceFormats);
     VkExtent2D extent = H_findSupportedImageSize(surfaceCapabilities, width, height);
     VkPresentModeKHR presentMode = H_findPresentationMode(physicalDevice, surface);
 

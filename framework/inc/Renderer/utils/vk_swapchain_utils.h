@@ -5,11 +5,12 @@
 #ifndef VK_FRAMEWORK_VK_SWAP_CHAIN_UTILS_H
 #define VK_FRAMEWORK_VK_SWAP_CHAIN_UTILS_H
 
+#include <vk_loader/vk_loader.h>
+#include <common/lily_structs.h>
 
 /** Find supported image format*/
 VkSurfaceFormatKHR
-H_findPresentSurfaceImageFormat(VkPhysicalDevice&,
-                                VkSurfaceKHR&);
+H_findPresentSurfaceImageFormat(std::vector<VkSurfaceFormatKHR>&);
 
 /** Find supported image size extent*/
 VkExtent2D
@@ -59,6 +60,7 @@ void H_getSwapChainImages(VkDevice&,
 /** Create swap chain*/
 void
 H_createSwapChain( VkPhysicalDevice&,
+                   std::vector<VkSurfaceFormatKHR>&,
                    VkDevice&,
                    VkSurfaceKHR&,
                    uint16_t ,

@@ -18,6 +18,7 @@ private:
 
 public:
     Window() = default;
+    int width, height;
 
     // Draw callback
     void (*pDrawCallBack)(long) = nullptr;
