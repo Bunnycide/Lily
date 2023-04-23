@@ -23,14 +23,21 @@ void Window::createWindowSurface (VkInstance instance){
     H_createRenderSurface(instance, surface, pWindow);
 }
 
+bool Window::isWindowClosing(){
+    return glfwWindowShouldClose( pWindow );
+}
+
+void Window::updateWindow(){
+    glfwSwapBuffers(pWindow);
+    glfwPollEvents();
+}
+
 void Window::mainLoop(){
     if( pWindow == nullptr ) return;
 
     while(!glfwWindowShouldClose( pWindow )){
 
-        if(pDrawCallBack != nullptr){
-            pDrawCallBack(0.0l);
-        }
+//        pDrawCallBack(0.0l);
 
         glfwSwapBuffers(pWindow);
         glfwPollEvents();

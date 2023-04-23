@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(INC_DIR         ${CMAKE_SOURCE_DIR}/framework/inc)
 set(SRC_DIR         ${CMAKE_SOURCE_DIR}/framework/src)
-set(EXTERNAL_DIR    ${CMAKE_SOURCE_DIR}/external)
+set(EXTERNAL_DIR    ${CMAKE_SOURCE_DIR}/framework/external)
 set(ASSET_FOLDER    ${CMAKE_SOURCE_DIR}/assets)
 
 # render surface impl
@@ -96,7 +96,12 @@ add_library(lily    ${SRC_DIR}/Window/WindowBase.cpp
                     ${SRC_DIR}/Shader/utils/spv_reflect_util.cpp
                     ${SRC_DIR}/Resources/Image/vk_image_util.cpp
                     ${SRC_DIR}/Resources/Image/Texture2D.cpp
-                    ${SRC_DIR}/Resources/asset_utils.cpp framework/src/Resources/Image/depth_util.cpp framework/src/Renderer/utils/vk_swapchain_utils.cpp)
+                    ${SRC_DIR}/Resources/asset_utils.cpp
+                    ${SRC_DIR}/Resources/Image/depth_util.cpp
+                    ${SRC_DIR}/Renderer/utils/vk_swapchain_utils.cpp
+                    ${SRC_DIR}/Sync/semaphores/vk_semaphore_utils.cpp
+                    ${SRC_DIR}/Sync/fences/vk_fence_utils.cpp
+                    ${SRC_DIR}/Renderer/RenderPass.cpp framework/src/Window/App.cpp MyApp.cpp)
 # ===================================
 
 # ===================================

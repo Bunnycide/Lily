@@ -89,8 +89,8 @@ void H_submitCommandBufferToQueue(VkQueue queue,
     VkSubmitInfo submit_info{VK_STRUCTURE_TYPE_SUBMIT_INFO};
     submit_info.pNext = nullptr;
     submit_info.waitSemaphoreCount = static_cast<uint32_t>(wait_semaphore_handles.size());
-    submit_info.pWaitSemaphores  = !wait_semaphore_handles.empty() ? wait_semaphore_handles.data() : nullptr;
-    submit_info.pWaitDstStageMask = wait_semaphore_stages.empty() ? wait_semaphore_stages.data() : nullptr;
+    submit_info.pWaitSemaphores  = ! wait_semaphore_handles.empty() ? wait_semaphore_handles.data() : nullptr;
+    submit_info.pWaitDstStageMask =! wait_semaphore_stages.empty() ? wait_semaphore_stages.data() : nullptr;
     submit_info.commandBufferCount = static_cast<uint32_t>(commandBuffer.size());
     submit_info.pCommandBuffers = !  commandBuffer.empty() ? commandBuffer.data() : nullptr;
     submit_info.signalSemaphoreCount = static_cast<uint32_t>(signalSemaphores.size());

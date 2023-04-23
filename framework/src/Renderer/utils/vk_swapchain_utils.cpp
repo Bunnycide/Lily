@@ -129,7 +129,8 @@ void H_createSwapChainFrameBuffers(VkDevice&                    logicalDevice,
                                    ImageInfo&                   depthResource,
                                    VkRenderPass&                renderPass,
                                    std::vector<VkImageView>&    imageViews,
-                                   std::vector<VkFramebuffer>&  frameBuffers){
+                                   std::vector<VkFramebuffer>&  frameBuffers,
+                                   uint32_t windowWidth, uint32_t windowHeight){
     frameBuffers.resize(imageViews.size());
 
     for(int i = 0; i < frameBuffers.size(); i ++){
@@ -145,8 +146,8 @@ void H_createSwapChainFrameBuffers(VkDevice&                    logicalDevice,
                 /* VkRenderPass             */.renderPass = renderPass,
                 /* uint32_t                 */.attachmentCount = static_cast<uint32_t>(attachments.size()),
                 /* const VkImageView*       */.pAttachments = attachments.data(),
-                /* uint32_t                 */.width = 800,
-                /* uint32_t                 */.height = 600,
+                /* uint32_t                 */.width = windowWidth,
+                /* uint32_t                 */.height = windowHeight,
                 /* uint32_t                 */.layers = 1
         };
 
@@ -167,6 +168,8 @@ void H_destroyFrameBuffers(VkDevice logicalDevice,
 void H_getSwapChainImages(VkDevice& logicalDevice, VkSwapchainKHR& swapChain  ,std::vector<VkImage>& swapChainImages){
     uint32_t swapChainImageCount = 0;
     VK_CHECK_RESULT(vkGetSwapchainImagesKHR(logicalDevice, swapChain, &swapChainImageCount, nullptr))
+
+    Log::info("There are %d images", swapChainImageCount);
 
     if(swapChainImageCount <= 0) return;
     swapChainImages.resize(swapChainImageCount);
@@ -207,7 +210,6 @@ void H_createSwapChain(VkPhysicalDevice& physicalDevice,
     swapChainCreateInfo.queueFamilyIndexCount = 1;
     swapChainCreateInfo.pQueueFamilyIndices = &presentationFamilyIndex;
     swapChainCreateInfo.preTransform = surfaceCapabilities.currentTransform;
-    // TODO : handle this later for alpha blending
     swapChainCreateInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
     swapChainCreateInfo.presentMode = presentMode;
     swapChainCreateInfo.clipped = VK_TRUE;

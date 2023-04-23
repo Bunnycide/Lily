@@ -297,7 +297,7 @@ Fontconfig_INCLUDE_DIR:PATH=/usr/include
 Fontconfig_LIBRARY:FILEPATH=/usr/lib/libfontconfig.so
 
 //Value Computed by CMake
-GLFW_BINARY_DIR:STATIC=/home/jae/CLionProjects/vk-framework-impl/cmake-build-debug/external/glfw-3.3.8
+GLFW_BINARY_DIR:STATIC=/home/jae/CLionProjects/vk-framework-impl/cmake-build-debug/framework/external/glfw-3.3.8
 
 //Build the GLFW documentation
 GLFW_BUILD_DOCS:BOOL=OFF
@@ -315,7 +315,7 @@ GLFW_INSTALL:BOOL=OFF
 GLFW_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
-GLFW_SOURCE_DIR:STATIC=/home/jae/CLionProjects/vk-framework-impl/external/glfw-3.3.8
+GLFW_SOURCE_DIR:STATIC=/home/jae/CLionProjects/vk-framework-impl/framework/external/glfw-3.3.8
 
 //Use OSMesa for offscreen context creation
 GLFW_USE_OSMESA:BOOL=OFF
@@ -588,13 +588,22 @@ X11_xkbfile_INCLUDE_PATH:PATH=/usr/include
 X11_xkbfile_LIB:FILEPATH=/usr/lib/libxkbfile.so
 
 //Value Computed by CMake
-glm_BINARY_DIR:STATIC=/home/jae/CLionProjects/vk-framework-impl/cmake-build-debug/external/glm
+glm_BINARY_DIR:STATIC=/home/jae/CLionProjects/vk-framework-impl/cmake-build-debug/framework/external/glm
 
 //Value Computed by CMake
 glm_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
-glm_SOURCE_DIR:STATIC=/home/jae/CLionProjects/vk-framework-impl/external/glm
+glm_SOURCE_DIR:STATIC=/home/jae/CLionProjects/vk-framework-impl/framework/external/glm
+
+//Value Computed by CMake
+lily_framework_BINARY_DIR:STATIC=/home/jae/CLionProjects/vk-framework-impl/cmake-build-debug/framework
+
+//Value Computed by CMake
+lily_framework_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+lily_framework_SOURCE_DIR:STATIC=/home/jae/CLionProjects/vk-framework-impl/framework
 
 //Path to a library.
 pkgcfg_lib_PKG_FONTCONFIG_fontconfig:FILEPATH=/usr/lib/libfontconfig.so

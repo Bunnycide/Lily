@@ -6,6 +6,7 @@
 #define VK_FRAMEWORK_WINDOW_H
 
 #include <vk_loader/vk_loader.h>
+#include "App.h"
 
 class WindowBase {
 public:
@@ -15,12 +16,13 @@ public:
     // Vulkan Window Render Surface
     VkSurfaceKHR surface;
 
+
     // Window creation logic
     virtual void createWindow           (int width, int height) = 0;
 
     // Window surface creation logic
     virtual void createWindowSurface    (VkInstance)            = 0;
-    
+
 protected:
 
 };

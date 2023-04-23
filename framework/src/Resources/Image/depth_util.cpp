@@ -89,8 +89,7 @@ void H_createDepthResources(VkPhysicalDevice physicalDevice,
         .aspect = aspect
     });
     
-    H_setupImageMemoryBarrier(depthImageInfo,
-                              image_transition,
+    H_setupImageMemoryBarrier(image_transition,
                               queue,
                               commandBuffer,
                               VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT,

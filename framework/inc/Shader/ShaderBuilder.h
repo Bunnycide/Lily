@@ -16,7 +16,7 @@ public:
     VertexInfo vertexInfo;
     std::vector<DescriptorSetLayoutData> allDescriptorData;
 
-    std::vector<VkShaderModule> shaderModules;
+    std::vector<ShaderInfo> shaderModules;
 
     ShaderBuilder* addShader(Device, std::string source, VkShaderStageFlags stage);
 };

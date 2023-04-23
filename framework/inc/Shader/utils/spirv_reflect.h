@@ -4,5 +4,5 @@
 
 #ifndef VK_FRAMEWORK_IMPL_SPIRV_REFLECT_H_IN
 #define VK_FRAMEWORK_IMPL_SPIRV_REFLECT_H_IN
-#include "/home/jae/CLionProjects/vk-framework-impl/external/spirv-reflect/spirv_reflect.h"
+#include "/home/jae/CLionProjects/vk-framework-impl/framework/external/spirv-reflect/spirv_reflect.h"
 #endif //VK_FRAMEWORK_IMPL_SPIRV_REFLECT_H_IN

@@ -47,7 +47,8 @@ void H_createSwapChainFrameBuffers(VkDevice&,
                                    ImageInfo&,
                                    VkRenderPass&,
                                    std::vector<VkImageView>&,
-                                   std::vector<VkFramebuffer>&);
+                                   std::vector<VkFramebuffer>&,
+                                   uint32_t, uint32_t);
 
 /** Delete Frame buffers */
 void H_destroyFrameBuffers(VkDevice, std::vector<VkFramebuffer>&);

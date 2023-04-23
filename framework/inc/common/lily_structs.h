@@ -143,8 +143,7 @@ struct CopyDescriptorInfo {
 };
 
 struct ShaderInfo{
-    uint32_t* spv_src;
-    uint32_t size;
+    VkShaderModule shaderModule;
     VkShaderStageFlags type;
 };
 

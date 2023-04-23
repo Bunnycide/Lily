@@ -10,8 +10,9 @@
 #include "vk_loader/vulkan/vk_enum_string_helper.h"
 #include <Shader/utils/vk_descriptor_util.h>
 #include <common/lily_macros.h>
+#include "Resources/utils/vk_image_util.h"
 
-Renderer::Renderer(Device& device,
+void Renderer::init(Device& device,
                    Window& window,
                    ShaderBuilder& shaderBuilder) {
     createDepthAttachment   (device, window);
@@ -20,6 +21,8 @@ Renderer::Renderer(Device& device,
 }
 
 void Renderer::createDepthAttachment(Device& device, Window& window) {
+    depthFormat = H_findDepthFormat(device.physicalDevice);
+
     H_createDepthResources(device.physicalDevice,
                            device.logicalDevice,
                            device.physicalDeviceMemoryProperties,
@@ -53,7 +56,9 @@ void Renderer::createSwapChain(Device& device, Window& window) {
                          swapChain.swapchain,
                          swapChain.swapChainImages);
 
-    VkSurfaceFormatKHR surfaceFormat =
+    swapChain.swapChainSize = swapChain.swapChainImages.size();
+
+    surfaceFormat =
             H_findPresentSurfaceImageFormat(device.windowSurfaceFormats);
 
     swapChain.colorSpace = surfaceFormat.colorSpace;
@@ -63,6 +68,9 @@ void Renderer::createSwapChain(Device& device, Window& window) {
                                 surfaceFormat,
                                 swapChain.swapChainImages,
                                 swapChain.swapChainImageViews);
+
+    // Transition swapChain images to VK_IMAGE_LAYOUT_PRESENT_SRC_KHR
+    transitionSwapChainImages(device);
 }
 
 void Renderer::setupRenderer(Device& device,
@@ -96,4 +104,54 @@ void Renderer::setupRenderer(Device& device,
                              descriptorData.descriptorPool,
                              descriptorData.layouts,
                              descriptorData.descriptorSets);
+
+    H_createPipelineLayout(device.logicalDevice,
+                           render.pipelineLayout,
+                           descriptorData.layouts);
+
+    H_createRenderPass(device.logicalDevice,
+                       surfaceFormat.format,
+                       depthFormat,
+                       render.renderPass);
+
+    // Create Swap Chain FrameBuffers
+
+    H_createSwapChainFrameBuffers(  device.logicalDevice,
+                                    render.depthResource,
+                                    render.renderPass,
+                                    swapChain.swapChainImageViews,
+                                    swapChain.swapChainFrameBuffers,
+                                    window.width,
+                                    window.height);
+
+    H_createRenderPipeline(device.logicalDevice,
+                           window,
+                           shaderBuilder.vertexInfo,
+                           shaderBuilder.shaderModules,
+                           render.renderPass,
+                           render.pipelineLayout,
+                           render.gfxPipeline);
+}
+
+void Renderer::transitionSwapChainImages(Device & device){
+    std::vector<ImageTransition> imageTransitions;
+
+    for(int i = 0; i < swapChain.swapChainSize; i++){
+        imageTransitions.push_back(ImageTransition{
+            .image = swapChain.swapChainImages[i],
+            .currentAccess = VK_ACCESS_NONE_KHR,
+            .newAccess= VK_ACCESS_NONE_KHR,
+            .currentLayout = VK_IMAGE_LAYOUT_UNDEFINED,
+            .newLayout =VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
+            .currentQueueFamily = VK_QUEUE_FAMILY_IGNORED,
+            .newQueueFamily = VK_QUEUE_FAMILY_IGNORED,
+            .aspect = VK_IMAGE_ASPECT_COLOR_BIT
+        });
+    }
+
+    H_setupImageMemoryBarrier(imageTransitions,
+                              device.graphicsQueueSet.queues[0],
+                              device.graphicsCommands.commandPoolInfo.commandBuffers[0],
+                              VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT,
+                              VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
 }

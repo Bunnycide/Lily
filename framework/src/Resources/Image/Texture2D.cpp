@@ -113,8 +113,7 @@ Texture2D::Texture2D( Device device,
         .aspect             = VK_IMAGE_ASPECT_COLOR_BIT
     });
 
-    H_setupImageMemoryBarrier(texture,
-                              image_transition,
+    H_setupImageMemoryBarrier(image_transition,
                               device.graphicsQueueSet.queues[0],
                               device.graphicsCommands.commandPoolInfo.commandBuffers[0],
                               VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
@@ -155,8 +154,7 @@ Texture2D::Texture2D( Device device,
             .aspect = VK_IMAGE_ASPECT_COLOR_BIT
     };
 
-    H_setupImageMemoryBarrier(texture,
-                              image_transition,
+    H_setupImageMemoryBarrier(image_transition,
                               device.graphicsQueueSet.queues[0],
                               device.graphicsCommands.commandPoolInfo.commandBuffers[0],
                               VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);

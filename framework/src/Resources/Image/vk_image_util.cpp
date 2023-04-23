@@ -85,12 +85,12 @@ void H_allocateAndBindMemoryObjectToImage(VkDevice logicalDevice,
     VK_CHECK_RESULT(vkBindImageMemory(logicalDevice, imageInfo.image, imageInfo.memoryObj, 0))
 }
 
-void H_setupImageMemoryBarrier(ImageInfo& imageInfo,
-                               std::vector<ImageTransition>& imageTransitions,
+void H_setupImageMemoryBarrier(std::vector<ImageTransition>& imageTransitions,
                                VkQueue queue,
                                VkCommandBuffer commandBuffer,
                                VkPipelineStageFlags generatingStages,
                                VkPipelineStageFlags consumingStages){
+
     std::vector<VkImageMemoryBarrier> imageMemoryBarriers(imageTransitions.size());
 
     for(int i = 0; i < imageTransitions.size(); i++){
@@ -103,7 +103,7 @@ void H_setupImageMemoryBarrier(ImageInfo& imageInfo,
 /* VkImageLayout           */   .newLayout = imageTransitions[i].newLayout,
 /* uint32_t                */   .srcQueueFamilyIndex = imageTransitions[i].currentQueueFamily,
 /* uint32_t                */   .dstQueueFamilyIndex = imageTransitions[i].newQueueFamily,
-/* VkImage                 */   .image = imageInfo.image,
+/* VkImage                 */   .image = imageTransitions[i].image,
 /* VkImageSubresourceRange */   .subresourceRange = {
     /* VkImageAspectFlags */   .aspectMask = imageTransitions[i].aspect,
     /* uint32_t           */   .baseMipLevel = 0,

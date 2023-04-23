@@ -8,8 +8,7 @@
 
 #include <Window/WindowBase.h>
 #include <GLFW/glfw3.h>
-
-void drawFrame(long dealtTime);
+#include "Window/App.h"
 
 class Window : public WindowBase{
 
@@ -29,6 +28,10 @@ public:
     void createWindowSurface(VkInstance) override;
 
     void mainLoop();
+
+    bool isWindowClosing();
+
+    void updateWindow();
 };
 
 #endif //VK_FRAMEWORK_IMPL_WINDOW_H

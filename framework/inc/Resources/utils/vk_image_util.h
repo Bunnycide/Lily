@@ -22,8 +22,7 @@ void H_allocateAndBindMemoryObjectToImage(VkDevice,
                                           ImageInfo&,
                                           VkPhysicalDeviceMemoryProperties);
 
-void H_setupImageMemoryBarrier(ImageInfo& ,
-                               std::vector<ImageTransition>& ,
+void H_setupImageMemoryBarrier(std::vector<ImageTransition>& ,
                                VkQueue ,
                                VkCommandBuffer ,
                                VkPipelineStageFlags ,

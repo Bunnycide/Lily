@@ -5,6 +5,9 @@
 #ifndef VK_FRAMEWORK_VK_RENDER_X_UTILS_H
 #define VK_FRAMEWORK_VK_RENDER_X_UTILS_H
 
+#include "common/lily_structs.h"
+#include "Window/plat_window.h"
+
 void H_createRenderPass(VkDevice&,
                         VkFormat,
                         VkFormat,
@@ -14,12 +17,13 @@ void H_createPipelineLayout(VkDevice&,
                             VkPipelineLayout&,
                             std::vector<VkDescriptorSetLayout>&);
 
-//void H_createRenderPipeline(VkDevice&,
-//                            float, float,
-//                            Shader&,
-//                            VkPipelineLayout&,
-//                            VkRenderPass&,
-//                            VkPipeline&);
+void H_createRenderPipeline(VkDevice&,
+                            Window,
+                            VertexInfo,
+                            std::vector<ShaderInfo>,
+                            VkRenderPass&,
+                            VkPipelineLayout&,
+                            VkPipeline&);
 
 void H_parseSpriVToDescriptorLayout();
 

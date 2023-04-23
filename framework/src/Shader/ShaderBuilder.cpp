@@ -17,7 +17,7 @@ ShaderBuilder* ShaderBuilder::addShader(Device device, std::string source, VkSha
                           shader.mspv,
                           &module);
 
-    shaderModules.push_back(module);
+    shaderModules.push_back({module, stage});
 
     if(stage == VK_SHADER_STAGE_VERTEX_BIT){
         vertexInfo = generateVertexInfo(shader.mspv);

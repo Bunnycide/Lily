@@ -44,12 +44,12 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/jae/CLionProjects/vk-framework-impl/cmake-build-debug/external/glm/cmake_install.cmake")
+  include("/home/jae/CLionProjects/vk-framework-impl/cmake-build-debug/framework/external/glm/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/jae/CLionProjects/vk-framework-impl/cmake-build-debug/external/glfw-3.3.8/cmake_install.cmake")
+  include("/home/jae/CLionProjects/vk-framework-impl/cmake-build-debug/framework/external/glfw-3.3.8/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

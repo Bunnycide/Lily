@@ -16,11 +16,16 @@ private:
     void createSwapChain        (Device&,    Window&);
     void setupRenderer          (Device&,    Window&, ShaderBuilder&);
 public:
-    explicit Renderer(Device& , Window&, ShaderBuilder& );
+    void init(Device& , Window&, ShaderBuilder& );
 
     VulkanRender render;
     VulkanSwapChain swapChain;
     DescriptorData descriptorData;
+
+    VkSurfaceFormatKHR  surfaceFormat;
+    VkFormat            depthFormat;
+
+    void transitionSwapChainImages(Device &device);
 };
 
 
