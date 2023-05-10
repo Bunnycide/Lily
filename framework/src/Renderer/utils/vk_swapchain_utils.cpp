@@ -169,8 +169,6 @@ void H_getSwapChainImages(VkDevice& logicalDevice, VkSwapchainKHR& swapChain  ,s
     uint32_t swapChainImageCount = 0;
     VK_CHECK_RESULT(vkGetSwapchainImagesKHR(logicalDevice, swapChain, &swapChainImageCount, nullptr))
 
-    Log::info("There are %d images", swapChainImageCount);
-
     if(swapChainImageCount <= 0) return;
     swapChainImages.resize(swapChainImageCount);
     VK_CHECK_RESULT(vkGetSwapchainImagesKHR(logicalDevice, swapChain, &swapChainImageCount, swapChainImages.data()));

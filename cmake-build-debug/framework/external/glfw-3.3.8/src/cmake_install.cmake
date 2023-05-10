@@ -1,4 +1,4 @@
-# Install script for directory: /home/jae/CLionProjects/vk-framework-impl/framework/external/glfw-3.3.8/src
+# Install script for directory: /home/jae/CLionProjects/test/Lily/framework/external/glfw-3.3.8/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -3,13 +3,15 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <cstring>
+#include <memory>
 
 void H_createBuffer(VkDevice logicalDevice, BufferInfo& bufferInfo){
     VkBufferCreateInfo createInfo{VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO};
 
     createInfo.pNext = nullptr;
     createInfo.flags = 0;
-    createInfo.size = bufferInfo.bufSz;
+    createInfo.size = bufferInfo.size;
     createInfo.usage = bufferInfo.usage;
     createInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
     createInfo.pQueueFamilyIndices = nullptr;
@@ -27,7 +29,7 @@ void H_allocateAndBindMemoryObjectToBuffer(VkPhysicalDevice physicalDevice,
     vkGetBufferMemoryRequirements(logicalDevice, bufferInfo.buffer, &memory_requirements);
 
     // Initialize memory handle
-    bufferInfo.memoryObj = VK_NULL_HANDLE;
+    bufferInfo.memory_object = VK_NULL_HANDLE;
 
     for(uint32_t type = 0; type < physicalDeviceMemoryProperties.memoryTypeCount; ++type){
 
@@ -43,7 +45,7 @@ void H_allocateAndBindMemoryObjectToBuffer(VkPhysicalDevice physicalDevice,
 
         if( (memory_requirements.memoryTypeBits & (1 << type)) &&
             ((physicalDeviceMemoryProperties.memoryTypes[type].propertyFlags &
-              bufferInfo.memoryProperties) == bufferInfo.memoryProperties) ){
+              bufferInfo.memory_properties) == bufferInfo.memory_properties) ){
 
             VkMemoryAllocateInfo buffer_memory_allocate_info = {
                     VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO,
@@ -52,7 +54,7 @@ void H_allocateAndBindMemoryObjectToBuffer(VkPhysicalDevice physicalDevice,
                     type
             };
 
-            VkResult result = vkAllocateMemory(logicalDevice, &buffer_memory_allocate_info, nullptr, &bufferInfo.memoryObj);
+            VkResult result = vkAllocateMemory(logicalDevice, &buffer_memory_allocate_info, nullptr, &bufferInfo.memory_object);
 
             if(result == VK_SUCCESS){
                 break;
@@ -60,15 +62,57 @@ void H_allocateAndBindMemoryObjectToBuffer(VkPhysicalDevice physicalDevice,
         }
     }
 
-    if(VK_NULL_HANDLE == bufferInfo.memoryObj){
+    if(VK_NULL_HANDLE == bufferInfo.memory_object){
         Log::error("Could not allocate memory for buffer");
         return;
     }
 
-    VK_CHECK_RESULT(vkBindBufferMemory(logicalDevice, bufferInfo.buffer, bufferInfo.memoryObj, 0))
+    VK_CHECK_RESULT(vkBindBufferMemory(logicalDevice, bufferInfo.buffer, bufferInfo.memory_object, 0))
 }
 
+void H_mapBuffer(VkDevice logical_device,
+                 BufferInfo buffer_info,
+                 VkDeviceSize offset){
 
+    VK_CHECK_RESULT(
+            vkMapMemory(logical_device,
+                        buffer_info.memory_object,
+                        offset,
+                        buffer_info.size,
+                        0,
+                        &buffer_info.memory_pointer))
+}
+
+void H_copyDataToMappedBuffer(VkDevice logical_device,
+                              BufferInfo buffer_info,
+                              VkDeviceSize offset,
+                              void* data){
+    std::memcpy(buffer_info.memory_pointer, data, buffer_info.size);
+
+}
+
+void H_mapAndCopyData(VkDevice logical_device,
+                      BufferInfo buffer_info,
+                      VkDeviceSize offset,
+                      void* data){
+    H_mapBuffer(logical_device, buffer_info, offset);
+    H_copyDataToMappedBuffer(logical_device, buffer_info, offset, data);
+
+    std::vector<VkMappedMemoryRange> memory_ranges = {
+            {
+                    VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE,
+                    nullptr,
+                    buffer_info.memory_object,
+                    offset,
+                    buffer_info.size
+            }
+    };
+
+    VK_CHECK_RESULT(
+            vkFlushMappedMemoryRanges(logical_device,
+                                      1,
+                                      &memory_ranges[0]))
+}
 
 void H_setBufferMemoryBarrier(std::vector<BufferTransition> &bufferTransitions,
                               VkPipelineStageFlags generatingStages,
@@ -119,6 +163,42 @@ void H_setBufferMemoryBarrier(std::vector<BufferTransition> &bufferTransitions,
     vkQueueWaitIdle(queue);
 }
 
+void H_copyDataUsingStagingBuffer(VkCommandBuffer   command_buffer,
+                                  VkQueue           queue,
+                                  BufferInfo        source_buffer,
+                                  BufferInfo        destination_buffer){
+    std::vector<VkBufferCopy> regions = {
+            {
+                0,0,source_buffer.size
+            }
+    };
+
+    H_beginCommandBufferRecording(command_buffer, VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
+
+    vkCmdCopyBuffer(command_buffer,
+                    source_buffer.buffer,
+                    destination_buffer.buffer,
+                    static_cast<uint32_t>(regions.size()),
+                    &regions[0]);
+
+    H_endCommandBufferRecording(command_buffer);
+
+    std::vector<VkSubmitInfo> queue_submit_infos = {
+            VkSubmitInfo{
+                .sType              = VK_STRUCTURE_TYPE_SUBMIT_INFO,
+                .commandBufferCount = 1,
+                .pCommandBuffers    = &command_buffer
+            }
+    };
+
+    vkQueueSubmit(queue,
+                  static_cast<uint32_t>(queue_submit_infos.size()),
+                  queue_submit_infos.data(),
+                  nullptr);
+
+    vkQueueWaitIdle(queue);
+}
+
 void H_createBufferView(VkDevice logicalDevice,
                         VkBuffer buffer,
                         VkFormat bufferFormat,
@@ -140,8 +220,8 @@ void H_createBufferView(VkDevice logicalDevice,
 void H_createVertexBuffer(VkDevice logicalDevice,
                           VkDeviceSize size,
                           BufferInfo& bufferInfo){
-    bufferInfo.memoryProperties = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
-    bufferInfo.bufSz = size;
+    bufferInfo.memory_properties = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
+    bufferInfo.size = size;
     bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT;
 
     H_createBuffer(logicalDevice, bufferInfo);
@@ -150,8 +230,8 @@ void H_createVertexBuffer(VkDevice logicalDevice,
 void H_createUniformBuffer(VkDevice logicalDevice,
                            VkDeviceSize size,
                            BufferInfo& bufferInfo){
-    bufferInfo.memoryProperties = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT;
-    bufferInfo.bufSz = size;
+    bufferInfo.memory_properties = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT;
+    bufferInfo.size = size;
     bufferInfo.usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
 
     H_createBuffer(logicalDevice, bufferInfo);
@@ -167,8 +247,8 @@ void H_copyToVertexBuffer(VkPhysicalDevice physicalDevice,
                           BufferInfo& dstBufferInfo){
 
     BufferInfo stagingBuffer{};
-    stagingBuffer.memoryProperties = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT;
-    stagingBuffer.bufSz = dstBufferInfo.bufSz;
+    stagingBuffer.memory_properties = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT;
+    stagingBuffer.size = dstBufferInfo.size;
     stagingBuffer.usage = VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
 
     H_createBuffer(logicalDevice, stagingBuffer);
@@ -179,37 +259,21 @@ void H_copyToVertexBuffer(VkPhysicalDevice physicalDevice,
                                           stagingBuffer);
 
     VK_CHECK_RESULT(vkMapMemory(logicalDevice,
-                                stagingBuffer.memoryObj,
+                                stagingBuffer.memory_object,
                                 0,
-                                stagingBuffer.bufSz,
+                                stagingBuffer.size,
                                 0,
-                                &stagingBuffer.memoryPointer))
+                                &stagingBuffer.memory_pointer))
 
-    memcpy( stagingBuffer.memoryPointer,
+    memcpy( stagingBuffer.memory_pointer,
             data,
-            stagingBuffer.bufSz);
+            stagingBuffer.size);
 
     std::vector<VkBufferCopy> regions;
 
     regions.push_back(VkBufferCopy{
-        0,0,stagingBuffer.bufSz
+        0,0,stagingBuffer.size
     });
-
-    std::vector<BufferTransition> bufferTransition(1);
-
-    bufferTransition[0] = {
-        .buffer = dstBufferInfo.buffer,
-        .currentAccess = VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT,
-        .newAccess = VK_ACCESS_TRANSFER_WRITE_BIT,
-        .currentQueueFamily = queueFamilyIndex,
-        .newQueueFamily = queueFamilyIndex
-    };
-
-    H_setBufferMemoryBarrier(bufferTransition,
-                             VK_PIPELINE_STAGE_VERTEX_INPUT_BIT,
-                             VK_PIPELINE_STAGE_TRANSFER_BIT,
-                             queue,
-                             commandBuffer);
 
     H_beginCommandBufferRecording(commandBuffer, VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
 
@@ -219,24 +283,34 @@ void H_copyToVertexBuffer(VkPhysicalDevice physicalDevice,
 
     H_endCommandBufferRecording(commandBuffer);
 
-    bufferTransition[0] = {
-            .buffer = dstBufferInfo.buffer,
-            .currentAccess = VK_ACCESS_TRANSFER_WRITE_BIT,
-            .newAccess = VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT,
-            .currentQueueFamily = queueFamilyIndex,
-            .newQueueFamily = queueFamilyIndex
+    VkSubmitInfo submitInfo{
+        .sType              = VK_STRUCTURE_TYPE_SUBMIT_INFO,
+        .commandBufferCount = 1,
+        .pCommandBuffers    = &commandBuffer
     };
 
-    H_setBufferMemoryBarrier(bufferTransition,
-                             VK_PIPELINE_STAGE_TRANSFER_BIT,
-                             VK_PIPELINE_STAGE_VERTEX_INPUT_BIT,
-                             queue,
-                             commandBuffer);
+    vkQueueSubmit(queue, 1, &submitInfo, nullptr);
+
+    vkQueueWaitIdle(queue);
+
+//    bufferTransition[0] = {
+//            .buffer = dstBufferInfo.buffer,
+//            .currentAccess = VK_ACCESS_TRANSFER_WRITE_BIT,
+//            .newAccess = VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT,
+//            .currentQueueFamily = queueFamilyIndex,
+//            .newQueueFamily = queueFamilyIndex
+//    };
+//
+//    H_setBufferMemoryBarrier(bufferTransition,
+//                             VK_PIPELINE_STAGE_TRANSFER_BIT,
+//                             VK_PIPELINE_STAGE_VERTEX_INPUT_BIT,
+//                             queue,
+//                             commandBuffer);
 
     H_freeBuffer(logicalDevice, stagingBuffer);
 }
 
 void H_freeBuffer(VkDevice logicalDevice, BufferInfo& bufferInfo){
-    vkFreeMemory(logicalDevice, bufferInfo.memoryObj, nullptr);
+    vkFreeMemory(logicalDevice, bufferInfo.memory_object, nullptr);
     vkDestroyBuffer(logicalDevice, bufferInfo.buffer, nullptr);
 }

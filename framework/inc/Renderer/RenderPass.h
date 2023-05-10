@@ -39,16 +39,20 @@ private:
     VkPresentInfoKHR presentInfo;
     VkSubpassDependency dependency;
 
+    VkViewport viewport;
+    VkRect2D scissor;
+
     Window mWindow;
     VkDevice logicalDevice;
     VulkanSwapChain mPresentation;
     VulkanRender mRenderData;
+    DescriptorData mDescriptorData;
 
 public:
     uint32_t max_frames_in_flight = 2;
 
     void init(Device&, Window&, Renderer&);
-
+    void updateRenderer(Renderer&);
     void beginRenderPass();
     void endRenderPass();
 
@@ -56,9 +60,9 @@ public:
 
     void setScissorRect();
     void setViewPort();
-    void bindVertexBuffer(VertexBuffer& buffer);
-    void bindIndexBuffer(VertexBuffer& vertexBuffer);
-    void drawIndexed();
+    void bindVertexBuffer(BufferInfo&, VkDeviceSize);
+    void bindIndexBuffer(BufferInfo&);
+    void drawIndexed(uint32_t size);
     void drawElement();
 
     void recordCommandBuffer();

@@ -15,6 +15,19 @@ void H_allocateAndBindMemoryObjectToBuffer(VkPhysicalDevice ,
                                            VkDevice ,
                                            VkPhysicalDeviceMemoryProperties ,
                                            BufferInfo& );
+void H_mapBuffer(VkDevice logical_device,
+                 BufferInfo buffer_info,
+                 VkDeviceSize offset);
+
+void H_copyDataToMappedBuffer(VkDevice logical_device,
+                              BufferInfo buffer_info,
+                              VkDeviceSize offset,
+                              void* data);
+
+void H_mapAndCopyData(VkDevice logical_device,
+                      BufferInfo buffer_info,
+                      VkDeviceSize offset,
+                      void* data);
 
 void H_setBufferMemoryBarrier(std::vector<BufferTransition> &,
                               VkPipelineStageFlags,

@@ -17,6 +17,10 @@ public:
     VkSampler  sampler;
 
     Texture2D(Device, const char* );
+    void updateDescriptorInfo(VkDevice logicalDevice,
+                              VkDescriptorSet descriptorSet,
+                              uint32_t targetDescriptorBinding,
+                              uint32_t targetArrayElement);
 };
 
 

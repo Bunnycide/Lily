@@ -29,9 +29,10 @@ public:
     Commands transferCommands;
     Commands computeCommands;
 
-    VkInstance          instance;
-    VkPhysicalDevice    physicalDevice;
-    VkDevice            logicalDevice;
+    VkInstance                  instance;
+    VkPhysicalDevice            physicalDevice;
+    VkDevice                    logicalDevice;
+    VkDebugUtilsMessengerEXT    debugMessenger;
 
     explicit Device(WindowBase&);
     ~Device() = default;

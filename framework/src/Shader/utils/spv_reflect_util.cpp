@@ -3,6 +3,7 @@
 //
 #include <Shader/utils/spv_reflect_util.h>
 #include <algorithm>
+#include "vk_loader/vulkan/vk_enum_string_helper.h"
 
 static uint32_t FormatSize(VkFormat format) {
     uint32_t result = 0;
@@ -422,23 +423,25 @@ VertexInfo generateVertexInfo(const std::vector<uint32_t> &compilerResult) {
     vertexInfo.binding_description = {};
 
     if (module.shader_stage == SPV_REFLECT_SHADER_STAGE_VERTEX_BIT) {
-
+                                                                            
         vertexInfo.binding_description.binding = 0;
-        vertexInfo.binding_description.stride = 32;
+        vertexInfo.binding_description.stride = 0;
         vertexInfo.binding_description.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-
+                                                                                                                  
         vertexInfo.attribute_descriptions.reserve(input_vars.size());
+
+        std::reverse(input_vars.begin(), input_vars.end());
 
         for (size_t i_var = 0; i_var < input_vars.size(); ++i_var) {
             const SpvReflectInterfaceVariable& refl_var =
                     *(input_vars[i_var]);
-
+                                                    
             if (refl_var.decoration_flags & SPV_REFLECT_DECORATION_BUILT_IN) {
                 continue;
             }
 
             VkVertexInputAttributeDescription attr_desc{};
-
+                                                        
             attr_desc.location = refl_var.location;
             attr_desc.binding = vertexInfo.binding_description.binding;
             attr_desc.format = static_cast<VkFormat>(refl_var.format);
@@ -453,7 +456,7 @@ VertexInfo generateVertexInfo(const std::vector<uint32_t> &compilerResult) {
                      const VkVertexInputAttributeDescription& b) {
                       return a.location < b.location;
                   });
-
+                                                    
         for (auto& attribute : vertexInfo.attribute_descriptions) {
             uint32_t format_size = FormatSize(attribute.format);
             attribute.offset = vertexInfo.binding_description.stride;
@@ -464,6 +467,14 @@ VertexInfo generateVertexInfo(const std::vector<uint32_t> &compilerResult) {
     spvReflectDestroyShaderModule(&module);
 
     return vertexInfo;
+}
+
+void generateDescriptorInfo(const std::vector<uint32_t>&                 compilerResult,
+                            uint32_t&                                    set_number,
+                            VkDescriptorSetLayoutCreateInfo&             create_info,
+                            std::vector<VkDescriptorSetLayoutBinding>&   bindings){
+    std::vector<DescriptorSetLayoutData> descData = generateDescriptorInfo(compilerResult);
+    
 }
 
 std::vector<DescriptorSetLayoutData>
@@ -487,7 +498,7 @@ generateDescriptorInfo(const std::vector<uint32_t>& compilerResult){
 
     std::vector<DescriptorSetLayoutData> set_layouts;
     set_layouts.resize(sets.size(), DescriptorSetLayoutData{});
-
+                                                                 
     for (size_t i_set = 0; i_set < sets.size(); ++i_set) {
         const SpvReflectDescriptorSet& refl_set = *(sets[i_set]);
         DescriptorSetLayoutData& layout = set_layouts[i_set];

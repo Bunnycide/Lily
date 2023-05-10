@@ -13,17 +13,16 @@ void H_createRenderPass(VkDevice& logicalDevice,
                         VkFormat colorAttachmentFormat,
                         VkFormat depthAttachmentFormat,
                         VkRenderPass& pRenderPass){
-    VkAttachmentDescription colorPassAttachment;
 
-    /* VkAttachmentDescriptionFlags */   colorPassAttachment.flags               = 0;
-    /* VkFormat                     */   colorPassAttachment.format              = colorAttachmentFormat;
-    /* VkSampleCountFlagBits        */   colorPassAttachment.samples             = VK_SAMPLE_COUNT_1_BIT;
-    /* VkAttachmentLoadOp           */   colorPassAttachment.loadOp              = VK_ATTACHMENT_LOAD_OP_CLEAR;
-    /* VkAttachmentStoreOp          */   colorPassAttachment.storeOp             = VK_ATTACHMENT_STORE_OP_STORE;
-    /* VkAttachmentLoadOp           */   colorPassAttachment.stencilLoadOp       = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-    /* VkAttachmentStoreOp          */   colorPassAttachment.stencilStoreOp      = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-    /* VkImageLayout                */   colorPassAttachment.initialLayout       = VK_IMAGE_LAYOUT_UNDEFINED;
-    /* VkImageLayout                */   colorPassAttachment.finalLayout         = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+    VkAttachmentDescription colorPassAttachment{};
+    colorPassAttachment.format          = colorAttachmentFormat;
+    colorPassAttachment.samples         = VK_SAMPLE_COUNT_1_BIT;
+    colorPassAttachment.loadOp          = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    colorPassAttachment.storeOp         = VK_ATTACHMENT_STORE_OP_STORE;
+    colorPassAttachment.stencilLoadOp   = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    colorPassAttachment.stencilStoreOp  = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+    colorPassAttachment.initialLayout   = VK_IMAGE_LAYOUT_UNDEFINED;
+    colorPassAttachment.finalLayout     = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
 
     VkAttachmentReference colorAttachmentReference{};
     colorAttachmentReference.attachment = 0;
@@ -34,7 +33,7 @@ void H_createRenderPass(VkDevice& logicalDevice,
     /* VkFormat                     */   depthPassAttachment.format              = depthAttachmentFormat;
     /* VkSampleCountFlagBits        */   depthPassAttachment.samples             = VK_SAMPLE_COUNT_1_BIT;
     /* VkAttachmentLoadOp           */   depthPassAttachment.loadOp              = VK_ATTACHMENT_LOAD_OP_CLEAR;
-    /* VkAttachmentStoreOp          */   depthPassAttachment.storeOp             = VK_ATTACHMENT_STORE_OP_STORE;
+    /* VkAttachmentStoreOp          */   depthPassAttachment.storeOp             = VK_ATTACHMENT_STORE_OP_DONT_CARE;
     /* VkAttachmentLoadOp           */   depthPassAttachment.stencilLoadOp       = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
     /* VkAttachmentStoreOp          */   depthPassAttachment.stencilStoreOp      = VK_ATTACHMENT_STORE_OP_DONT_CARE;
     /* VkImageLayout                */   depthPassAttachment.initialLayout       = VK_IMAGE_LAYOUT_UNDEFINED;
@@ -63,14 +62,12 @@ void H_createRenderPass(VkDevice& logicalDevice,
     /* VkAccessFlags        */   subpassDependency.dstAccessMask   = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
 
     VkRenderPassCreateInfo renderPassCreateInfo{VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO};
-    /* const void*                     */  renderPassCreateInfo.pNext             = nullptr;
-    /* VkRenderPassCreateFlags         */  renderPassCreateInfo.flags             = 0;
-    /* uint32_t                        */  renderPassCreateInfo.attachmentCount   = static_cast<uint32_t>(attachments.size());
-    /* const VkAttachmentDescription*  */  renderPassCreateInfo.pAttachments      = attachments.data();
-    /* uint32_t                        */  renderPassCreateInfo.subpassCount      = 1;
-    /* const VkSubpassDescription*     */  renderPassCreateInfo.pSubpasses        = &subpassDescription;
-    /* uint32_t                        */  renderPassCreateInfo.dependencyCount   = 1;
-    /* const VkSubpassDependency*      */  renderPassCreateInfo.pDependencies     = &subpassDependency;
+    renderPassCreateInfo.attachmentCount    = static_cast<uint32_t>(attachments.size()) ;
+    renderPassCreateInfo.pAttachments       = attachments.data();
+    renderPassCreateInfo.subpassCount       = 1;
+    renderPassCreateInfo.pSubpasses         = &subpassDescription;
+    renderPassCreateInfo.dependencyCount    = 1;
+    renderPassCreateInfo.pDependencies      = &subpassDependency;
 
     VK_CHECK_RESULT(vkCreateRenderPass(logicalDevice, &renderPassCreateInfo, nullptr, &pRenderPass))
 }
@@ -99,7 +96,6 @@ void H_createRenderPipeline(VkDevice& logicalDevice,
                             VkPipelineLayout&           pipelineLayout,
                             VkPipeline&                 pipeline
                             ){
-
 
     VkPipelineVertexInputStateCreateInfo vertexInputStateCreateInfo {
             .sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO,
@@ -155,21 +151,22 @@ void H_createRenderPipeline(VkDevice& logicalDevice,
 
     VkPipelineRasterizationStateCreateInfo rasterizationStateCreateInfo {VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO};
 
-    /* const void*                             */   rasterizationStateCreateInfo.pNext                   = nullptr;
-    /* VkPipelineRasterizationStateCreateFlags */   rasterizationStateCreateInfo.flags                   = 0;
-    /* VkBool32                                */   rasterizationStateCreateInfo.depthClampEnable        = VK_FALSE;
-    /* VkBool32                                */   rasterizationStateCreateInfo.rasterizerDiscardEnable = VK_FALSE;
-    /* VkPolygonMode                           */   rasterizationStateCreateInfo.polygonMode             = VK_POLYGON_MODE_FILL;
-    /* VkCullModeFlags                         */   rasterizationStateCreateInfo.cullMode                = VK_CULL_MODE_BACK_BIT;
-    /* VkFrontFace                             */   rasterizationStateCreateInfo.frontFace               = VK_FRONT_FACE_COUNTER_CLOCKWISE;
-    /* VkBool32                                */   rasterizationStateCreateInfo.depthBiasEnable         = VK_FALSE;
-    /* float                                   */   rasterizationStateCreateInfo.depthBiasConstantFactor = 0.0f;
-    /* float                                   */   rasterizationStateCreateInfo.depthBiasClamp          = 0.0f;
-    /* float                                   */   rasterizationStateCreateInfo.depthBiasSlopeFactor    = 0.0f;
-    /* float                                   */   rasterizationStateCreateInfo.lineWidth               = 1.0f;
+    /* const void*                             */   rasterizationStateCreateInfo.sType                      = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+    /* VkPipelineRasterizationStateCreateFlags */   rasterizationStateCreateInfo.pNext                      = nullptr;
+    /* VkBool32                                */   rasterizationStateCreateInfo.flags                      = 0;
+    /* VkBool32                                */   rasterizationStateCreateInfo.depthClampEnable           = VK_FALSE;
+    /* VkPolygonMode                           */   rasterizationStateCreateInfo.rasterizerDiscardEnable    = VK_FALSE;
+    /* VkCullModeFlags                         */   rasterizationStateCreateInfo.polygonMode                = VK_POLYGON_MODE_FILL;
+    /* VkFrontFace                             */   rasterizationStateCreateInfo.cullMode                   = VK_CULL_MODE_FRONT_BIT;
+    /* VkBool32                                */   rasterizationStateCreateInfo.frontFace                  = VK_FRONT_FACE_COUNTER_CLOCKWISE;
+    /* float                                   */   rasterizationStateCreateInfo.depthBiasEnable            = VK_FALSE;
+    /* float                                   */   rasterizationStateCreateInfo.depthBiasConstantFactor    = 0.0f;
+    /* float                                   */   rasterizationStateCreateInfo.depthBiasClamp             = 0.0f;
+    /* float                                   */   rasterizationStateCreateInfo.depthBiasSlopeFactor       = 0.0f  ;
+    /* float                                   */   rasterizationStateCreateInfo.lineWidth                  = 1.0f;
 
     VkPipelineColorBlendAttachmentState colorBlendAttachment{
-            /* VkBool32              */   .blendEnable         = VK_FALSE,
+            /* VkBool32              */   .blendEnable         = VK_TRUE,
             /* VkBlendFactor         */   .srcColorBlendFactor = VK_BLEND_FACTOR_ONE,
             /* VkBlendFactor         */   .dstColorBlendFactor = VK_BLEND_FACTOR_ZERO,
             /* VkBlendOp             */   .colorBlendOp        = VK_BLEND_OP_ADD,
@@ -181,7 +178,7 @@ void H_createRenderPipeline(VkDevice& logicalDevice,
                                                                     VK_COLOR_COMPONENT_B_BIT |
                                                                     VK_COLOR_COMPONENT_A_BIT,
     };
-
+                                                            
     VkPipelineColorBlendStateCreateInfo colorBlendStateCreateInfo{VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO};
 
     /* const void*                                */   colorBlendStateCreateInfo.pNext             = nullptr;
@@ -222,17 +219,17 @@ void H_createRenderPipeline(VkDevice& logicalDevice,
     VkPipelineDepthStencilStateCreateInfo depthStencilStateCreateInfo
             {VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO};
 
-    depthStencilStateCreateInfo.pNext = nullptr;
-    depthStencilStateCreateInfo.flags = 0;
-    depthStencilStateCreateInfo.depthTestEnable = VK_TRUE;
-    depthStencilStateCreateInfo.depthWriteEnable = VK_TRUE;
-    depthStencilStateCreateInfo.depthCompareOp = VK_COMPARE_OP_LESS;
-    depthStencilStateCreateInfo.depthBoundsTestEnable = VK_FALSE;
-    depthStencilStateCreateInfo.stencilTestEnable = VK_FALSE;
-    depthStencilStateCreateInfo.front = {};
-    depthStencilStateCreateInfo.back = {};
-    depthStencilStateCreateInfo.minDepthBounds = 0.0f;
-    depthStencilStateCreateInfo.maxDepthBounds = 1.0f;
+    depthStencilStateCreateInfo.pNext                   = nullptr;
+    depthStencilStateCreateInfo.flags                   = 0;
+    depthStencilStateCreateInfo.depthTestEnable         = VK_TRUE;
+    depthStencilStateCreateInfo.depthWriteEnable        = VK_TRUE;
+    depthStencilStateCreateInfo.depthCompareOp          = VK_COMPARE_OP_LESS;
+    depthStencilStateCreateInfo.depthBoundsTestEnable   = VK_FALSE;
+    depthStencilStateCreateInfo.stencilTestEnable       = VK_FALSE;
+    depthStencilStateCreateInfo.front                   = {};
+    depthStencilStateCreateInfo.back                    = {};
+    depthStencilStateCreateInfo.minDepthBounds          = 0.0f;
+    depthStencilStateCreateInfo.maxDepthBounds          = 1.0f;
 
     VkPipelineInputAssemblyStateCreateInfo pipelineInputAssemblyStateCreateInfo{
         VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO

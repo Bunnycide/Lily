@@ -5,6 +5,15 @@
 #include <common/lily_enums.h>
 #include <common/lily_structs.h>
 
+static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
+        VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+        VkDebugUtilsMessageTypeFlagsEXT messageType,
+        const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
+        void* pUserData);
+
+
+void H_setupDebugMessenger(VkInstance, VkDebugUtilsMessengerEXT&);
+
 void H_createVulkanInstance(VkInstance&,
                             ContextType&);
 

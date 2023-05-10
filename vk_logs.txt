@@ -1,0 +1,15 @@
+Launching Vulkan Application:
+- Layers overridden by "Validation" configuration.
+- Application: vk_framework_impl
+- Executable: /home/jae/CLionProjects/test/Lily/cmake-build-debug/vk_framework_impl
+- Working Directory: /home/jae/CLionProjects/test/Lily/cmake-build-debug
+- Command-line Arguments: --suppress_popups
+- Log file: /home/jae/CLionProjects/test/Lily/vk_logs.txt
+UNASSIGNED-khronos-validation-createinstance-status-message(INFO / SPEC): msgNum: -671457468 - Validation Information: [ UNASSIGNED-khronos-validation-createinstance-status-message ] Object 0: handle = 0x5635fb993ab0, type = VK_OBJECT_TYPE_INSTANCE; | MessageID = 0xd7fa5f44 | Khronos Validation Layer Active:
+    Settings File: Found at /home/jae/.local/share/vulkan/settings.d/vk_layer_settings.txt specified by VkConfig application override.
+    Current Enables: VK_VALIDATION_FEATURE_ENABLE_SYNCHRONIZATION_VALIDATION.
+    Current Disables: VK_VALIDATION_FEATURE_DISABLE_OBJECT_LIFETIMES_EXT, VK_VALIDATION_FEATURE_DISABLE_CORE_CHECKS_EXT, VK_VALIDATION_FEATURE_DISABLE_API_PARAMETERS_EXT.
+
+    Objects: 1
+        [0] 0x5635fb993ab0, type: 1, name: NULL
+Process terminated

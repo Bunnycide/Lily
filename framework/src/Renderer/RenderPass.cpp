@@ -16,12 +16,29 @@ void RenderPass::setViewPort() {
 
 }
 
-void RenderPass::bindVertexBuffer(VertexBuffer &buffer) {
-
+void RenderPass::bindVertexBuffer(BufferInfo &buffer, VkDeviceSize offset) {
+    offset = 0;
+    vkCmdBindVertexBuffers(currentCommandBuffer,
+                           0,
+                           1,
+                           &buffer.buffer,
+                           &offset);
 }
 
-void RenderPass::bindIndexBuffer(VertexBuffer&) {
+void RenderPass::bindIndexBuffer(BufferInfo& bufferInfo) {
+    vkCmdBindIndexBuffer(currentCommandBuffer,
+                         bufferInfo.buffer,
+                         0,
+                         VK_INDEX_TYPE_UINT16);
+}
 
+void RenderPass::drawIndexed(uint32_t size) {
+    vkCmdDrawIndexed(currentCommandBuffer,
+                     size,
+                     1,
+                     0,
+                     0,
+                     0);
 }
 
 void RenderPass::init(Device& device,
@@ -48,6 +65,7 @@ void RenderPass::init(Device& device,
     commands.allocate(  device.logicalDevice,
                         max_frames_in_flight,
                         gfxQueueIndex);
+    mDescriptorData = renderer.descriptorData;
 }
 
 void RenderPass::beginRenderPass() {
@@ -92,12 +110,43 @@ void RenderPass::recordCommandBuffer(){
                          &rpInfo,
                          VK_SUBPASS_CONTENTS_INLINE);
 
+    viewport.x          = 0.0f;
+    viewport.y          = 0.0f;
+    viewport.width      = static_cast<float>(mWindow.width);
+    viewport.height     = static_cast<float>(mWindow.height);
+    viewport.minDepth   = 0.0f;
+    viewport.maxDepth   = 1.0f;
+
+    vkCmdSetViewport(currentCommandBuffer, 0, 1, &viewport);
+
+    scissor.offset = {0, 0};
+    scissor.extent = {
+            static_cast<uint32_t>(mWindow.width),
+            static_cast<uint32_t>(mWindow.height)
+    };
+
+    vkCmdSetScissor(currentCommandBuffer, 0, 1, &scissor);
+
+    vkCmdBindDescriptorSets(
+/*VkCommandBuffer        commandBuffer,      */ currentCommandBuffer,
+/*VkPipelineBindPoint    pipelineBindPoint,  */ VK_PIPELINE_BIND_POINT_GRAPHICS,
+/*VkPipelineLayout       layout,             */ mRenderData.pipelineLayout,
+/*uint32_t               firstSet,           */ 0,
+/*uint32_t               descriptorSetCount, */ static_cast<uint32_t>(mDescriptorData.descriptorSets.size()),
+/*const VkDescriptorSet* pDescriptorSets,    */ mDescriptorData.descriptorSets.data(),
+/*uint32_t               dynamicOffsetCount, */ 0,
+/*const uint32_t*        pDynamicOffsets     */ nullptr
+    );
+
+    vkCmdBindPipeline( currentCommandBuffer,
+                       VK_PIPELINE_BIND_POINT_GRAPHICS,
+                       mRenderData.gfxPipeline);
+
 }
 
 void RenderPass::endRenderPass() {
     vkCmdEndRenderPass(currentCommandBuffer);
     H_endCommandBufferRecording(currentCommandBuffer);
-
 
     waitSemaphoreInfos = {{
                                   imageAvailableSemaphores[current_frame],
@@ -132,4 +181,10 @@ void RenderPass::present() {
     vkQueuePresentKHR(gfxQueue, &presentInfo);
 
     current_frame = (current_frame + 1) % max_frames_in_flight;
+}
+
+void RenderPass::updateRenderer(Renderer& renderer) {
+    mPresentation = renderer.swapChain;
+    mRenderData = renderer.render;
+    mDescriptorData = renderer.descriptorData;
 }

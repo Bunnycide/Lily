@@ -10,14 +10,12 @@
 #include <Device/Device.h>
 
 class Buffer {
-
-protected:
-    BufferInfo bufferInfo;
 public:
-    Buffer(Device,
-           VkDeviceSize,
-           VkBufferUsageFlags,
-           VkMemoryPropertyFlagBits );
+    BufferInfo bufferInfo;
+    void init(  Device,
+                VkDeviceSize,
+                VkBufferUsageFlags,
+                VkMemoryPropertyFlags );
 
     void free(Device);
 };

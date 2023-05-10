@@ -19,7 +19,7 @@ public:
     std::vector<ShaderInfo> shaderModules;
 
     ShaderBuilder* addShader(Device, std::string source, VkShaderStageFlags stage);
-};
 
+};
 
 #endif //VK_FRAMEWORK_IMPL_SHADERBUILDER_H

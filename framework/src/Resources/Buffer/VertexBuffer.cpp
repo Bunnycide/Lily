@@ -4,10 +4,12 @@
 
 #include <Resources/Buffer/VertexBuffer.h>
 
-VertexBuffer::VertexBuffer(Device device, VkDeviceSize sz, void* data) :
-Buffer(device, sz,
-VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
-VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT) {
+void VertexBuffer::init(Device device, VkDeviceSize sz, void* data)
+{
+    Buffer::init(   device, sz,
+           VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
+           VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+
     H_copyToVertexBuffer(device.physicalDevice,
                          device.logicalDevice,
                          device.physicalDeviceMemoryProperties,

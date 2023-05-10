@@ -88,7 +88,7 @@ void H_createDepthResources(VkPhysicalDevice physicalDevice,
         .newQueueFamily = VK_QUEUE_FAMILY_IGNORED,
         .aspect = aspect
     });
-    
+
     H_setupImageMemoryBarrier(image_transition,
                               queue,
                               commandBuffer,

@@ -65,7 +65,7 @@ target_include_directories(log_util PUBLIC ${INC_DIR})
 # Build vk_loader
 add_library(vk_loader   ${SRC_DIR}/vk_loader/vk_functions.cpp
                         ${SRC_DIR}/vk_loader/vk_loader.cpp)
-target_include_directories(log_util PRIVATE ${INC_DIR})
+target_include_directories(vk_loader PRIVATE ${INC_DIR})
 # ===================================
 
 # ===================================
@@ -101,7 +101,11 @@ add_library(lily    ${SRC_DIR}/Window/WindowBase.cpp
                     ${SRC_DIR}/Renderer/utils/vk_swapchain_utils.cpp
                     ${SRC_DIR}/Sync/semaphores/vk_semaphore_utils.cpp
                     ${SRC_DIR}/Sync/fences/vk_fence_utils.cpp
-                    ${SRC_DIR}/Renderer/RenderPass.cpp framework/src/Window/App.cpp MyApp.cpp)
+                    ${SRC_DIR}/Renderer/RenderPass.cpp framework/src/Window/App.cpp
+                    MyApp.cpp
+                    ${SRC_DIR}/Resources/Image/texture_util.cpp
+                    ${SRC_DIR}/Shader/Descriptor.cpp
+                    ${SRC_DIR}/Resources/Buffer/UniformBuffer.cpp)
 # ===================================
 
 # ===================================

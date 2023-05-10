@@ -89,7 +89,7 @@ void Renderer::setupRenderer(Device& device,
         std::vector<VkDescriptorPoolSize> temp =
                 H_extractDescriptorSetTypes(shaderBuilder.allDescriptorData[i].bindings);
 
-        for(auto& poolSizes : descPoolSizes){
+        for(auto& poolSizes : temp){
             descPoolSizes.push_back(poolSizes);
         }
     }

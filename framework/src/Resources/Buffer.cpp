@@ -4,12 +4,12 @@
 
 #include <Resources/Buffer.h>
 
-Buffer::Buffer(Device device,
-               VkDeviceSize sz,
-               VkBufferUsageFlags usage,
-               VkMemoryPropertyFlagBits memoryProperties) {
-    bufferInfo.bufSz = sz;
-    bufferInfo.memoryProperties = memoryProperties;
+void Buffer::init(  Device device,
+                    VkDeviceSize sz,
+                    VkBufferUsageFlags usage,
+                    VkMemoryPropertyFlags memoryProperties) {
+    bufferInfo.size = sz;
+    bufferInfo.memory_properties = memoryProperties;
     bufferInfo.usage = usage;
 
     H_createBuffer(device.logicalDevice,

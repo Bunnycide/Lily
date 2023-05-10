@@ -5,6 +5,6 @@
 #ifndef VK_FRAMEWORK_IMPL_ASSET_FOLDER_H
 #define VK_FRAMEWORK_IMPL_ASSET_FOLDER_H
 
-#define ASSET_FOLDER "/home/jae/CLionProjects/vk-framework-impl/assets"
+#define ASSET_FOLDER "/home/jae/CLionProjects/test/Lily/assets"
 
 #endif //VK_FRAMEWORK_IMPL_ASSET_FOLDER_H

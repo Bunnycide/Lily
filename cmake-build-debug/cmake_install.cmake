@@ -1,4 +1,4 @@
-# Install script for directory: /home/jae/CLionProjects/vk-framework-impl
+# Install script for directory: /home/jae/CLionProjects/test/Lily
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,12 +44,12 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/jae/CLionProjects/vk-framework-impl/cmake-build-debug/framework/external/glm/cmake_install.cmake")
+  include("/home/jae/CLionProjects/test/Lily/cmake-build-debug/framework/external/glm/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/jae/CLionProjects/vk-framework-impl/cmake-build-debug/framework/external/glfw-3.3.8/cmake_install.cmake")
+  include("/home/jae/CLionProjects/test/Lily/cmake-build-debug/framework/external/glfw-3.3.8/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -60,5 +60,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/jae/CLionProjects/vk-framework-impl/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/jae/CLionProjects/test/Lily/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

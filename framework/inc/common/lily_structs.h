@@ -16,17 +16,19 @@ struct Consts{
 
     constexpr static const int NUM_VALIDATION_LAYERS = 1;
     constexpr static const char* VALIDATION_LAYERS[] = {
-            "VK_LAYER_KHRONOS_validation"
+            "VK_LAYER_KHRONOS_validation",
+//            "VK_LAYER_LUNARG_api_dump"
     };
 
-    constexpr static const int NUM_INSTANCE_EXTENSIONS = 2;
+    constexpr static const int NUM_INSTANCE_EXTENSIONS = 3;
     constexpr static const char* INSTANCE_EXTENSIONS[] = {
             VK_KHR_SURFACE_EXTENSION_NAME,
-            "VK_KHR_xcb_surface"
+            "VK_KHR_xcb_surface",
+            VK_EXT_DEBUG_REPORT_EXTENSION_NAME,
     };
 
     constexpr static const int NUM_DEVICE_EXTENSIONS = 1;
-    constexpr static const char* DEVICE_EXTENSIONS[] = {
+    constexpr static const char* DEVICE_EXTENSIONS[1] = {
             VK_KHR_SWAPCHAIN_EXTENSION_NAME
     };
 };
@@ -43,12 +45,12 @@ struct ContextType {
 };
 
 struct BufferInfo{
-    VkBuffer buffer;
-    VkDeviceSize bufSz;
-    VkBufferUsageFlags usage;
-    VkDeviceMemory memoryObj;
-    VkMemoryPropertyFlagBits memoryProperties;
-    void* memoryPointer;
+    VkBuffer                        buffer;
+    VkDeviceSize                    size;
+    VkBufferUsageFlags              usage;
+    VkDeviceMemory                  memory_object;
+    VkMemoryPropertyFlags           memory_properties;
+    void*                           memory_pointer;
 };
 
 struct ImageInfo{
@@ -100,12 +102,12 @@ struct ImageTransition {
 };
 
 struct Vertex {
-    glm::vec2 pos;
+    glm::vec3 pos;
     glm::vec3 color;
     glm::vec2 texCoord;
 };
 
-struct UniformBufferMVP{
+struct CameraMVP{
     glm::mat4 model;
     glm::mat4 view;
     glm::mat4 proj;

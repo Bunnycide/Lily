@@ -16,7 +16,16 @@ bool H_checkValidationLayerSupport(){
     vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
 
     for (VkLayerProperties& props : availableLayers){
+//        Log::info("%s", props.layerName);
         layers.erase(props.layerName);
+    }
+
+    bool success = layers.empty();
+
+    if(! success){
+        for(auto& layer : layers){
+            Log::error("%s not found", layer.c_str());
+        }
     }
 
     return layers.empty();

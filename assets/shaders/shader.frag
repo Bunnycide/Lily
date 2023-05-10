@@ -8,5 +8,5 @@ layout (location = 1) in vec3 outcolor;
 layout (location = 0) out vec4 uFragColor;
 
 void main() {
-    uFragColor = vec4(0.7f, 0.0f, 0.0f, 1.0f);
+    uFragColor = vec4(0.0f, 0.0f, .00f, 1.0f);
 }

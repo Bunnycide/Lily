@@ -5,6 +5,11 @@
 #ifndef VK_FRAMEWORK_TEXTURE_UTIL_H
 #define VK_FRAMEWORK_TEXTURE_UTIL_H
 
+#include "vk_loader/vk_loader.h"
+#include "common/lily_macros.h"
+#include "common/lily_structs.h"
+#include "Resources/utils/vk_image_util.h"
+
 void H_CreateTexture2DSampler(VkDevice ,
                               VkSampler& );
 

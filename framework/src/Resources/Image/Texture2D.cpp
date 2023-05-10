@@ -11,6 +11,7 @@
 #include <Resources/utils/vk_image_util.h>
 #include <Commands/utils/vk_command_X_utils.h>
 #include <Resources/asset_utils.h>
+#include "Shader/utils/vk_descriptor_util.h"
 
 bool H_LoadImageDataFromFile(const char * filePath,
                                       ImageInfo& imageInfo) {
@@ -28,7 +29,6 @@ bool H_LoadImageDataFromFile(const char * filePath,
     }
 
     return true;
-
 }
 
 Texture2D::Texture2D( Device device,
@@ -55,8 +55,8 @@ Texture2D::Texture2D( Device device,
                            texture);
     // Staging buffer
     BufferInfo stagingBufferInfo;
-    stagingBufferInfo.bufSz = texture.imgSize;
-    stagingBufferInfo.memoryProperties = VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+    stagingBufferInfo.size = texture.imgSize;
+    stagingBufferInfo.memory_properties = VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
     stagingBufferInfo.usage = VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
 
     H_createBuffer(device.logicalDevice, stagingBufferInfo);
@@ -66,18 +66,18 @@ Texture2D::Texture2D( Device device,
                                           device.physicalDeviceMemoryProperties,
                                           stagingBufferInfo);
     VK_CHECK_RESULT(vkMapMemory(device.logicalDevice,
-                                stagingBufferInfo.memoryObj,
+                                stagingBufferInfo.memory_object,
                                 0,
                                 texture.imgSize,
                                 0,
-                                &stagingBufferInfo.memoryPointer))
+                                &stagingBufferInfo.memory_pointer))
 
-    std::memcpy(stagingBufferInfo.memoryPointer,
+    std::memcpy(stagingBufferInfo.memory_pointer,
                 texture.imageData,
                 texture.imgSize);
 
     vkUnmapMemory(device.logicalDevice,
-                  stagingBufferInfo.memoryObj);
+                  stagingBufferInfo.memory_object);
 
     stbi_image_free(texture.imageData);
 
@@ -160,4 +160,29 @@ Texture2D::Texture2D( Device device,
                               VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
 
     H_CreateTexture2DSampler(device.logicalDevice, sampler);
+}
+
+void Texture2D::updateDescriptorInfo(VkDevice logicalDevice,
+                                     VkDescriptorSet descriptorSet,
+                                     uint32_t targetDescriptorBinding,
+                                     uint32_t targetArrayElement) {
+    std::vector<VkDescriptorImageInfo> imageDescriptorInfos = {
+            {
+                    /* VkSampler     */ .sampler        = this->sampler,
+                    /* VkImageView   */ .imageView      = this->texture.imageView,
+                    /* VkImageLayout */ .imageLayout    = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+            }
+    };
+
+    std::vector<ImageDescriptorInfo> descriptorInfos= {
+            ImageDescriptorInfo{
+/* VkDescriptorSet                    */ .TargetDescriptorSet       = descriptorSet,
+/* uint32_t                           */ .TargetDescriptorBinding   = targetDescriptorBinding,
+/* uint32_t                           */ .TargetArrayElement        = targetArrayElement,
+/* VkDescriptorType                   */ .TargetDescriptorType      = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
+/* std::vector<VkDescriptorImageInfo> */ .imageInfos                = imageDescriptorInfos
+            }
+    };
+
+    H_updateDescriptorSets(logicalDevice, descriptorInfos);
 }

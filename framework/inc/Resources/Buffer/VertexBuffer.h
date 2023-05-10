@@ -9,7 +9,7 @@
 
 class VertexBuffer : public Buffer{
 public:
-    VertexBuffer(Device, VkDeviceSize, void* );
+    void init(Device, VkDeviceSize, void* );
 };
 
 

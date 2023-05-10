@@ -1,4 +1,4 @@
-# Install script for directory: /home/jae/CLionProjects/vk-framework-impl/framework/external/glm/glm
+# Install script for directory: /home/jae/CLionProjects/test/Lily/framework/external/glm/glm
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

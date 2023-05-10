@@ -7,10 +7,11 @@ LIBRARY_TYPE vulkan_library;
 
 PFN_vkGetInstanceProcAddr vkGetInstanceProcAddr = nullptr;
 
-PFN_vkEnumerateInstanceExtensionProperties vkEnumerateInstanceExtensionProperties = nullptr;
-PFN_vkEnumerateInstanceLayerProperties vkEnumerateInstanceLayerProperties = nullptr;
-PFN_vkCreateInstance vkCreateInstance = nullptr;
-PFN_vkEnumerateInstanceVersion vkEnumerateInstanceVersion = nullptr;
+PFN_vkEnumerateInstanceExtensionProperties vkEnumerateInstanceExtensionProperties   = nullptr;
+PFN_vkEnumerateInstanceLayerProperties vkEnumerateInstanceLayerProperties           = nullptr;
+PFN_vkCreateInstance vkCreateInstance                                               = nullptr;
+PFN_vkEnumerateInstanceVersion vkEnumerateInstanceVersion                           = nullptr;
+//PFN_vkCreateDebugUtilsMessengerEXT vkCreateDebugUtilsMessengerEXT                   = nullptr;
 
 PFN_vkEnumeratePhysicalDevices vkEnumeratePhysicalDevices = nullptr;
 PFN_vkEnumerateDeviceExtensionProperties vkEnumerateDeviceExtensionProperties = nullptr;

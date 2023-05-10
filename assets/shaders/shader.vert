@@ -19,4 +19,5 @@ void main() {
     outcolor = incolor;
 
     gl_Position = ubo.proj * ubo.view * ubo.model * vec4(pos, 1.0f);
+//    gl_Position = vec4(pos, 1.0f);
 }
