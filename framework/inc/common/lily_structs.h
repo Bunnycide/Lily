@@ -20,11 +20,12 @@ struct Consts{
 //            "VK_LAYER_LUNARG_api_dump"
     };
 
-    constexpr static const int NUM_INSTANCE_EXTENSIONS = 3;
+    constexpr static const int NUM_INSTANCE_EXTENSIONS = 4;
     constexpr static const char* INSTANCE_EXTENSIONS[] = {
             VK_KHR_SURFACE_EXTENSION_NAME,
             "VK_KHR_xcb_surface",
             VK_EXT_DEBUG_REPORT_EXTENSION_NAME,
+            VK_EXT_DEBUG_UTILS_EXTENSION_NAME
     };
 
     constexpr static const int NUM_DEVICE_EXTENSIONS = 1;

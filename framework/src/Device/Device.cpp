@@ -20,15 +20,15 @@ Device::Device(WindowBase& mwindow){
         return;
     }
 
-//    if(Config::ENABLE_VALIDATION_LAYERS){
-//        H_setupDebugMessenger(instance, debugMessenger);
-//    }
-
     ContextType contextType;
 
     if(! createInstance(contextType)){
         Log::error("Failed to create vulkan instance");
         return;
+    }
+
+    if(Config::ENABLE_VALIDATION_LAYERS){
+        H_setupDebugMessenger(instance, debugMessenger);
     }
 
     mwindow.createWindowSurface(instance);

@@ -7,8 +7,8 @@
 void MyApp::draw(long delta) {
     renderPass.beginRenderPass();
     renderPass.recordCommandBuffer();
-    renderPass.bindVertexBuffer(vertexBuffer.bufferInfo, 0);
     renderPass.bindIndexBuffer(indexBuffer.bufferInfo);
+    renderPass.bindVertexBuffer(vertexBuffer.bufferInfo, 0);
     renderPass.drawIndexed(6);
     renderPass.endRenderPass();
     renderPass.present();
@@ -35,10 +35,10 @@ MyApp::MyApp(Device &device, Window &window) : mDevice(device), mWindow(window){
     renderPass.init(device, window, renderer);
 
     std::vector<Vertex> squareVertices = {
-            {{-0.5f, -0.5f, 1.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
-            {{0.5f,  -0.5f, 1.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},
-            {{0.5f,   0.5f, 1.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
-            {{-0.5f,  0.5f, 1.0f}, {1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}
+            {{-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+            {{0.5f,  -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},
+            {{0.5f,   0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
+            {{-0.5f,  0.5f, 0.0f}, {1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}
     };
 
     vertexBuffer.init(device, squareVertices.size() * sizeof (Vertex), squareVertices.data());
@@ -55,24 +55,25 @@ MyApp::MyApp(Device &device, Window &window) : mDevice(device), mWindow(window){
                                    0, 0);
 
     CameraMVP camera;
-
-    camera.model = glm::rotate(glm::mat4(1.0f), glm::radians(15.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-
-    camera.view = glm::lookAt(glm::vec3(5.0f, 5.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+                                            
+    glm::vec3 scale = glm::vec3(0.0f, 0.0f, 0.0f);
+    camera.model = glm::scale(camera.model, scale);
+    
+    camera.view = glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
     camera.proj = glm::perspective(glm::radians(45.0f), (float) mWindow.width / (float) mWindow.height, 0.1f, 10.0f);
-
+                                    
     camera.proj[1][1] *= -1;
-
+                                            
     uniformBuffer.init(device, sizeof(camera));
 
     uniformBuffer.copyToUniformBuffer(device.logicalDevice,
                                       sizeof(CameraMVP),
                                       &camera);
-
+                                                                
     uniformBuffer.updateDescriptors(device.logicalDevice,
                                     renderer.descriptorData.descriptorSets[0],
                                     1, 0);
-
+    
     renderPass.updateRenderer(renderer);
 }

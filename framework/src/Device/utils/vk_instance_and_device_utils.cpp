@@ -1,10 +1,64 @@
 #include <Device/utils/vk_instance_and_device_utils.h>
 #include <GLFW/glfw3.h>
 #include <common/lily_macros.h>
+#include <common/lily_structs.h>
+
+static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
+        VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+        VkDebugUtilsMessageTypeFlagsEXT messageType,
+        const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
+        void* pUserData) {
+    switch (messageSeverity) {
+        case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
+            Log::info("validation layer INFO : %s", pCallbackData->pMessage);
+            break;
+        case VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
+            Log::info("validation layer VERBOSE : %s", pCallbackData->pMessage);
+            break;
+        case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
+            Log::info("validation layer WARN : %s", pCallbackData->pMessage);
+            break;
+        case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
+            Log::info("validation layer ERROR : %s", pCallbackData->pMessage);
+            break;
+        default:
+            Log::info("validation layer: %s", pCallbackData->pMessage);
+            break;
+    }
+
+    return VK_FALSE;
+}
+
+void H_setupDebugMessenger(VkInstance instance, VkDebugUtilsMessengerEXT& messenger){
+    VkDebugUtilsMessengerCreateInfoEXT createInfo{};
+    createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
+    createInfo.messageSeverity =    VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT |
+                                    VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT |
+                                    VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT |
+                                    VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
+    createInfo.messageType =    VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT     |
+                                VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT  |
+                                VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+    createInfo.pfnUserCallback = debugCallback;
+    createInfo.pUserData = nullptr; // Optional
+
+    VK_CHECK_RESULT(vkCreateDebugUtilsMessengerEXT(
+                    instance,
+                    &createInfo,
+                    nullptr,
+                    &messenger
+            ))
+}
 
 void H_createVulkanInstance(VkInstance& instance, ContextType& contextType){
     uint32_t nexts = 0;
     auto exts = glfwGetRequiredInstanceExtensions(&nexts);
+
+    std::vector<const char*> extensions(exts, exts + nexts);
+
+    if(Config::ENABLE_VALIDATION_LAYERS){
+        extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+    }
 
     // TODO : Change initialization based on contextType
     VkApplicationInfo applicationInfo{VK_STRUCTURE_TYPE_APPLICATION_INFO};
@@ -22,8 +76,8 @@ void H_createVulkanInstance(VkInstance& instance, ContextType& contextType){
     instanceCreateInfo.pApplicationInfo = &applicationInfo;
     instanceCreateInfo.enabledLayerCount = Config::ENABLE_VALIDATION_LAYERS ? Consts::NUM_VALIDATION_LAYERS : 0;
     instanceCreateInfo.ppEnabledLayerNames = Config::ENABLE_VALIDATION_LAYERS ? Consts::VALIDATION_LAYERS : nullptr;
-    instanceCreateInfo.enabledExtensionCount = nexts;
-    instanceCreateInfo.ppEnabledExtensionNames = exts;
+    instanceCreateInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
+    instanceCreateInfo.ppEnabledExtensionNames = extensions.data();
 
     VK_CHECK_RESULT(vkCreateInstance(&instanceCreateInfo, nullptr, &instance));
 }

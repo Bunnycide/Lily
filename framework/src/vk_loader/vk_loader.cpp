@@ -11,7 +11,7 @@ PFN_vkEnumerateInstanceExtensionProperties vkEnumerateInstanceExtensionPropertie
 PFN_vkEnumerateInstanceLayerProperties vkEnumerateInstanceLayerProperties           = nullptr;
 PFN_vkCreateInstance vkCreateInstance                                               = nullptr;
 PFN_vkEnumerateInstanceVersion vkEnumerateInstanceVersion                           = nullptr;
-//PFN_vkCreateDebugUtilsMessengerEXT vkCreateDebugUtilsMessengerEXT                   = nullptr;
+PFN_vkCreateDebugUtilsMessengerEXT vkCreateDebugUtilsMessengerEXT                   = nullptr;
 
 PFN_vkEnumeratePhysicalDevices vkEnumeratePhysicalDevices = nullptr;
 PFN_vkEnumerateDeviceExtensionProperties vkEnumerateDeviceExtensionProperties = nullptr;
