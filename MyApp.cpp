@@ -35,10 +35,10 @@ MyApp::MyApp(Device &device, Window &window) : mDevice(device), mWindow(window){
     renderPass.init(device, window, renderer);
 
     std::vector<Vertex> squareVertices = {
-            {{-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
-            {{0.5f,  -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},
-            {{0.5f,   0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
-            {{-0.5f,  0.5f, 0.0f}, {1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}
+            {{-1.0f, -1.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+            {{1.0f,  -1.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},
+            {{1.0f,   1.0f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
+            {{-1.0f,  1.0f, 0.0f}, {1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}
     };
 
     vertexBuffer.init(device, squareVertices.size() * sizeof (Vertex), squareVertices.data());
@@ -56,7 +56,8 @@ MyApp::MyApp(Device &device, Window &window) : mDevice(device), mWindow(window){
 
     CameraMVP camera;
                                             
-    glm::vec3 scale = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 scale = glm::vec3(0.5f, 0.5f, 0.0f);
+    camera.model = glm::mat4(1.0f);
     camera.model = glm::scale(camera.model, scale);
     
     camera.view = glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));

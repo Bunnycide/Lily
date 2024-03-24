@@ -14,7 +14,7 @@ layout (location = 1) in vec3 incolor;
 layout (location = 2) in vec2 attr;
 
 void main() {
-    gl_Position = vec4(pos, 1.0);
+    gl_Position = ubo.model * vec4(pos, 1.0);
     fragColor = incolor;
     tex_attr = attr;
 }
