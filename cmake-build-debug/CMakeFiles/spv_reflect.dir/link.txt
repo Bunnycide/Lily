@@ -1,2 +1,0 @@
-/usr/bin/ar qc libspv_reflect.a "CMakeFiles/spv_reflect.dir/framework/external/spirv-reflect/spirv_reflect.cpp.o"
-/usr/bin/ranlib libspv_reflect.a
